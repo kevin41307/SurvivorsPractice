@@ -1,0 +1,91 @@
+---
+alwaysApply: true
+---
+
+## 專案技術棧
+ - **Unity**: 6000.3
+ - **Unity Test Framework**: com.unity.test-framework
+ - **IDE**: JetBrains Rider 2026.1
+ - **DI**: VContainer(jp.hadashikick.vcontainer)
+ - **非同步**: UniTask(com.cysharp.unitask)
+ - **Editor 擴充**: Sirenix Odin Inspector
+ - **事件處理**: R3, MessagePipe
+ - **Input System**: com.unity.inputsystem
+ - **序列化**: Newtonsoft.Json (Unity.Plastic.Newtonsoft.Json)
+ - **Tween動畫**: DoTween
+ - **狀態機**: UnityHFSM
+ - **Debug Logger**: Unity Debugger, ZLogger
+ - **RPG Stats**: com.kryzarel.rpg-stats
+ - **其他**: Object Pool(Unity提供)
+
+
+## 技術文件:
+ - https://docs.unity3d.com/6000.3/Documentation/Manual/index.html
+ - https://github.com/Cysharp/UniTask 
+ - https://github.com/Cysharp/ZLinq 
+ - https://github.com/Cysharp/R3 
+ - https://github.com/Cysharp/ZString 
+ - https://github.com/Cysharp/ZLogger 
+ - https://github.com/Cysharp/MessagePipe 
+ - https://github.com/Inspiaaa/UnityHFSM
+ - https://odininspector.com/documentation
+ - https://dotween.demigiant.com/documentation.php
+ - https://docs.unity3d.com/Packages/com.unity.inputsystem@1.19/manual/index.html
+ - https://github.com/Kryzarel/rpg-stats
+ - https://github.com/hadashiA/VContainer
+ - https://vcontainer.hadashikick.jp/
+ - https://docs.unity3d.com/Packages/com.unity.test-framework@1.4/manual/index.html
+
+
+
+## 新增或重構程式碼（包含測試）
+  - 使用unity 的api時，必須先翻閱對應的editor版本spec，了解其使用方式。
+  - ReadLints 顯示檔案 0 錯誤，才算完成該輪工作，否則需要修正錯誤。
+  - 使用第三方套件時，必須先閱讀該套件的文件，了解其使用方式。
+
+## 完成任何任務前的 Unity 編譯檢查（強制）
+  - 若本次變更有影響到 Unity 腳本/組件（例如 `Assets/**/*.cs`、`Packages/**`、asmdef），在回覆「完成」前必須確認 Unity **沒有 Compile Error**。
+  - 優先使用批次模式做編譯檢查（Windows / PowerShell 5.1 用分號 `;` 串命令，不用 `&&`）：
+    - 直接執行工具：`powershell -ExecutionPolicy Bypass -File Tools\Unity\CheckCompile.ps1`
+    - 工具行為：以 batchmode 觸發 import/compile，並從 log 偵測 `error CS` / `Compilation failed` / `Script compile errors`；偵測到即視為失敗，必須先修正到 0 compile error 才算完成。
+
+## 新增測試程式碼
+  - 若本次變更新增/修改測試（例如 `Assets/Tests/**/*.cs`、`Assets/**/Tests/**/*.cs`、`*.asmdef`），在回覆「完成」前必須能以 Unity Editor **batchmode** 跑過測試並產出結果檔。
+  - 使用批次模式跑測試（Windows / PowerShell 5.1 用分號 `;` 串命令，不用 `&&`）：
+    - 跑 EditMode（預設）：
+      - `powershell -ExecutionPolicy Bypass -File Tools\Unity\RunTests.ps1 -Platforms EditMode -NoGraphics`
+    - 跑 PlayMode：
+      - `powershell -ExecutionPolicy Bypass -File Tools\Unity\RunTests.ps1 -Platforms PlayMode -NoGraphics`
+    - 同時跑 EditMode + PlayMode：
+      - `powershell -ExecutionPolicy Bypass -File Tools\Unity\RunTests.ps1 -Platforms EditMode,PlayMode -NoGraphics`
+    - 跑特定測試（用完整名稱/正則）：
+      - `powershell -ExecutionPolicy Bypass -File Tools\Unity\RunTests.ps1 -Platforms EditMode -TestFilter "<FullName or regex>" -NoGraphics`
+    - 用 Category 篩選：
+      - `powershell -ExecutionPolicy Bypass -File Tools\Unity\RunTests.ps1 -Platforms EditMode -TestCategory "Smoke" -NoGraphics`
+  - 測試報告閱讀：
+    - `Tools\Unity\RunTests.ps1` 會在 `TestResults\` 產出 `*-results-*.xml`（NUnit XML）與對應的 `*.log`
+    - 快速看摘要表格（Result/Duration/FullName）：
+      - 指定檔案：`powershell -ExecutionPolicy Bypass -File Tools\Unity\ShowTestResults.ps1 -Path "TestResults\<file>.xml"`
+      - 最新一份：`powershell -ExecutionPolicy Bypass -File Tools\Unity\ShowTestResults.ps1`
+      - 只看失敗：`powershell -ExecutionPolicy Bypass -File Tools\Unity\ShowTestResults.ps1 -FailedOnly`
+      - 最慢前 N 個：`powershell -ExecutionPolicy Bypass -File Tools\Unity\ShowTestResults.ps1 -TopSlow 10`
+  - 失敗判定：
+    - `Tools\Unity\RunTests.ps1` 會依 Unity 執行結果與 results XML 內容判定成功/失敗，失敗時會回傳 exit code `1`，可直接用於 CI。
+
+
+## Odin Inspector
+* 使用Odin Inspector Attributes來表達屬性或欄位值域上的要求
+```csharp
+[MinValue(0)] int amount
+[MaxValue(100)] int maxValue
+[Required] public GameObject prefab;
+```
+
+
+## 方言:
+- 如果我問到某情境遇到的force是什麼, 那這裡的force是指"衝突／張力／必須同時滿足的約束"
+
+
+## 註解規範（強制）
+- 請參考 ai_comment_rules.mdc
+ 

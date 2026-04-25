@@ -1,0 +1,59 @@
+---
+alwaysApply: false
+---
+# Unity Package Manager (UPM) - Manifest 管理規範
+
+## 1. 概述
+本文件定義 Unity 專案中使用 manifest.json 管理套件的標準流程。
+
+## 2. manifest.json 位置
+/Packages/manifest.json
+
+## 3. 基本結構
+{
+  "dependencies": {}
+}
+
+## 4. 套件來源類型
+
+### Unity 官方 Registry
+{
+  "dependencies": {
+    "com.unity.cinemachine": "2.9.7"
+  }
+}
+
+### Git 套件
+{
+  "dependencies": {
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git#2.5.4"
+  }
+}
+
+### Git 子資料夾
+{
+  "dependencies": {
+    "com.company.mypackage": "https://github.com/company/repo.git?path=Packages/mypackage"
+  }
+}
+
+### 本地套件
+{
+  "dependencies": {
+    "com.mycompany.mylib": "file:../MyLib"
+  }
+}
+
+### Scoped Registry
+{
+  "scopedRegistries": [
+    {
+      "name": "My Registry",
+      "url": "https://registry.mycompany.com",
+      "scopes": ["com.mycompany"]
+    }
+  ],
+  "dependencies": {
+    "com.mycompany.mypackage": "1.0.0"
+  }
+}

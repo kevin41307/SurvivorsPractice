@@ -1,0 +1,10 @@
+---
+description: 使用者提到需要確認 Unity 沒有 Compile Error 或 檢查Unity的編譯狀況
+alwaysApply: false
+---
+
+## 檢查Unity的編譯狀況
+  - 若使用者提到需要確認 Unity 沒有 Compile Error 或 檢查Unity的編譯狀況:
+    - 使用批次模式做編譯檢查（Windows / PowerShell 5.1 用分號 `;` 串命令，不用 `&&`）：
+      - 直接執行工具：`powershell -ExecutionPolicy Bypass -File Tools\Unity\CheckCompile.ps1`
+      - 工具行為：以 batchmode 觸發 import/compile，並從 log 偵測 `error CS` / `Compilation failed` / `Script compile errors`；偵測到即視為失敗，必須先修正到 0 compile error 才算完成。

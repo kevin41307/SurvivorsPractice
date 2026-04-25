@@ -1,0 +1,117 @@
+---
+alwaysApply: false
+---
+Mastering Domain Alignment: A Practitioner’s Guide to Event Storming and Storytelling
+
+1. The Strategic Imperative of Domain Modeling
+
+Traditional requirement gathering often leads to what I term the "Grave of Assumptions." When teams rely on static specifications or meaningless UI wireframes, they treat software as a collection of data fields rather than a living business process. This creates the "Silo Effect," a fragmentation where engineers, designers, and product owners focus only on their narrow slice of the project. Beyond technical friction, silos breed a social ailment: we become indifferent toward one another (對彼此漠不關心).
+
+The goal of domain modeling is not the production of documentation, but the radical synchronization of mental models. It is about "Building Trust" and fostering a "Value Mindset" through shared cognition. For Technical Managers and Product Owners, this guide serves as a strategic roadmap to navigate the transition from the chaotic "Problem Space" to a "Fit Design":
+
+* Identify the "Fire": Pinpoint the business problems and pain points within the Problem Space.
+* Cognitive Synchronization: Replace individual assumptions with a collective "Ubiquitous Language."
+* Achieve Fit Design: Ensure the system in the Solution Space is neither over-engineered nor brittle, but perfectly aligned with business intent.
+
+
+--------------------------------------------------------------------------------
+
+
+2. Workshop Preparation: Roles and Mindsets
+
+Technical debt is almost always preceded by Cognitive Debt. When a team fails to sync, the architecture becomes a reflection of their misunderstanding. To prevent this, the workshop environment must be collaborative and strictly defined by roles selected through tactical preparation.
+
+Role	Primary Participants	Responsibility
+Questioners	Engineers, QA, Designers	To probe, seek clarity, and identify logical gaps in the process.
+Answerers	Domain Experts (Score 4-5/5)	Experts selected not by title, but by a familiarity score of 4 or 5 on a 5-point scale (e.g., the "Avalon Experts").
+
+To maintain architectural integrity and reduce cognitive burden, all Domain Events (Orange Stickies) must follow these three rules:
+
+1. Past Tense: Every sticky must represent a fact that has "Already Happened" (e.g., Leader Selected, Role Assigned). This anchors the team in indisputable business facts.
+2. Business Value: Only capture events that represent progress or a significant state change (the "Domain Pulse").
+3. Timeline Logic: Use a horizontal axis where Left is earlier and Right is later.
+
+Once roles are assigned and the "Timeline" is laid out, we enter the Divergent Phase, where discovery takes precedence over perfection.
+
+
+--------------------------------------------------------------------------------
+
+
+3. Execution Phase I: Divergent Event Discovery
+
+Strategic value is found first in Divergent Thinking. We must "spread out" to visualize the full scope of the business process before attempting to converge. Embrace the initial entropy; a chaotic board is merely the visual manifestation of hidden complexity being surfaced.
+
+The "Happy Path" Construction Guide:
+
+1. Identify the Happy Path: Model the core flow where everything goes exactly as planned—for instance, a 5-player game of Avalon where the first three missions succeed.
+2. Duplicate and Place: Rapidly place events. If a sticky is similar to another, place it above or below rather than overlapping.
+3. Identify Business Milestones: Calibrate granularity. Avoid trivial UI tasks (e.g., "Clicked Button"). Focus on points where the domain state changes or a goal is achieved (e.g., Mission Team Approved).
+
+The resulting "messy" board is a valuable map of the team's current collective (mis)understanding, revealing the scale of the challenge ahead.
+
+
+--------------------------------------------------------------------------------
+
+
+4. Execution Phase II: Convergence and Timeline Enforcement
+
+Following the explosion of ideas, we move into Convergent Thinking. The facilitator must now "Enforce the Timeline" to identify gaps, logical errors, and redundant events.
+
+Strategies for Synthesis:
+
+* Identify Hotspots (Red Stickies): Mark points of conflict or unresolved questions as "Hotspots."
+* The "Spring Festival Couplet" Technique: To lower the barrier for participation, we use a technique known at the Water Ball Software School (水球軟體學院) as "posting couplets." Question stickies are rotated to a diamond shape (like traditional New Year decorations). This allows introverted members to flag potential failures without the pressure of speaking.
+* Resolving Duplicates: Cluster similar events. If two stickies describe the exact same outcome, delete the exact duplicate to clean the timeline.
+
+Once the timeline is stable, it represents a "logical draft" that must be stress-tested through narrative.
+
+
+--------------------------------------------------------------------------------
+
+
+5. Execution Phase III: Storytelling for Narrative Validation
+
+Storytelling is the "So What?" of Event Storming. While orange stickies show what happens, a narrative reveals the "Hidden Assumptions" that stickies alone cannot capture.
+
+The Storytelling Protocol:
+
+* Actor Selection: A newcomer or engineer should narrate, rather than the Domain Expert. If the person least familiar with the domain can articulate the flow, the model is clear.
+* Breaking the Fourth Wall: The narrator tells the story from a specific persona's perspective (e.g., a 10-person game with Merlin and the Assassins). If the narrator gets "stuck"—for example, asking "Wait, how does Merlin actually identify the bad guys during the 'heads down' phase?"—the team must stop and resolve the dialogue immediately.
+* Exaggeration/Magnification: Use "what-if" scenarios to test edge cases, such as five consecutive failed votes for a leader.
+
+Successful Storytelling Outcomes:
+
+1. Identification of Missing Business Rules: Gaps in the "Happy Path" are filled with logic.
+2. Solidification of Ubiquitous Language: The team naturally converges on a single set of terms for every event and entity.
+
+
+--------------------------------------------------------------------------------
+
+
+6. Solidifying the Ubiquitous Language: The Glossary
+
+The Ubiquitous Language (Everywhere Language) is the bridge between the boardroom and the codebase. Ensuring the code is "Meaningful" and "Vibrant" prevents it from becoming "Legacy" code that only fits a "UI Flow" rather than the "Domain Pulse."
+
+Domain Glossary Template:
+
+Term (EN/CH)	Business Concept / Definition	Source Artifact
+Leader / 領袖	The first player assigned to propose a mission team.	Event: Leader Selected
+Mission Team / 任務成員	The group of players approved by vote to go on a quest.	Event: Team Assigned
+Vote / 投票	A binary decision (Approve/Reject) made by all players.	Event: Vote Cast
+Assassin / 刺客	A specialized evil role tasked with identifying Merlin.	Event: Role Assigned
+
+By formalizing these terms, we eliminate the mental tax of "Context Switching" for developers later in the lifecycle.
+
+
+--------------------------------------------------------------------------------
+
+
+7. Strategic Outcomes: From Workshop to Software Design
+
+The transition from the Problem Space to the Solution Space results in Fit Design. By using the artifacts derived from the workshop, we can establish a high-quality Tactical Design:
+
+* Aggregates & Business Invariants: Orange Events are the results of Business Invariants being protected. Aggregates (like the "Game" object) define the Consistency Boundary where these invariants are enforced.
+* Entities vs. Value Objects: We distinguish these through the logic of "Tracking Change." A Player is an Entity because they have an identity and state changes we must track (e.g., Role Assigned). A Vote is a Value Object; it is immutable—once cast, its value (Approve/Reject) never changes.
+* Use Cases & Commands: Commands (Blue Stickies) represent user intent. We map these directly to Application Layer services. The chain of execution is: Command (Intent) -> Aggregate (Logic/Invariant) -> Event (Result).
+
+This modeling process destroys organizational silos and creates Vibrant Code that shares the exact meaning of the business intent. Software ceases to be a mystery and becomes a true, living reflection of the domain.

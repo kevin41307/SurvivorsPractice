@@ -1,0 +1,62 @@
+---
+description: 使用者需要commit message時套用
+alwaysApply: false
+---
+# Commit Message Rules (Cursor MDC)
+
+把閱讀者當作剛接觸專案的高中生, 減少使用專業術語, 清楚的寫下commit message。
+
+## 語言(強制)
+
+-   盡量使用繁體中文, 除非是英文專有名詞或技術術語或類別, 方法名稱, 變數名稱...。
+
+## Format
+<type>(<scope>): <subject>
+
+## Types
+feat      -> new feature
+fix       -> bug fix
+refactor  -> code restructure (no behavior change)
+perf      -> performance improvement
+test      -> test changes
+docs      -> documentation only
+chore     -> tooling / build / config
+data      -> data-driven changes (game configs, tables)
+sim       -> deterministic simulation logic changes
+
+## Scope (required when possible)
+combat, damage, buff, proc, tag, ai, skill, ui, inventory, save, sim, data
+
+## Subject Rules
+- Use present tense (add, fix, change)
+- No period at end
+- Keep under ~72 chars
+- Be specific and searchable
+
+## Body (optional but recommended)
+- Explain WHY not just WHAT
+- List key changes
+- Mention deterministic impact if relevant
+
+## Breaking Change
+Use:
+BREAKING CHANGE: <description>
+
+or footer style in body.
+
+## Examples
+
+feat(combat): add critical hit calculation
+fix(sim): remove frame-dependent randomness
+refactor(buff): simplify stacking logic
+
+feat(ai): add kiting behavior
+
+BREAKING CHANGE: AI state machine updated
+
+## Rules for game systems (Unity Roguelike)
+- All sim changes must be deterministic
+- Avoid frame-dependent logic in sim layer
+- Data-driven changes should use `data` scope
+
+

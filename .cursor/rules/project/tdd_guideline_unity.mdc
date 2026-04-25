@@ -1,0 +1,107 @@
+---
+alwaysApply: true
+---
+
+# TDD Guideline for Game Development (Unity / C#)
+
+## 1. 核心原則（不可違反）
+
+### 1.1 Red → Green → Refactor（嚴格執行）
+- **Red**：先寫測試，且測試必須 fail
+- **Green**：寫最少的 code 讓測試通過
+- **Refactor**：重構但不可破壞測試
+
+禁止：
+- 先寫功能再補測試
+- 一次寫大量功能再測
+
+---
+
+### 1.2 測試是規格（Specification）
+- 測試名稱 = 行為描述（Behavior Driven）
+- 每個測試都在描述「系統應該怎麼運作」
+
+```csharp
+[Test]
+public void Attack_ShouldApplyDamage_WhenTargetInRange()
+```
+
+---
+
+### 1.3 單一責任（Test Scope）
+- 一個測試只驗證一件事
+- 避免多個 assertion（除非同一行為）
+
+---
+
+## 2. 測試設計規範
+
+### 2.1 命名規則（強制）
+```
+MethodName_ShouldExpectedBehavior_WhenCondition
+```
+
+例：
+```csharp
+CalculateDamage_ShouldReturnCriticalDamage_WhenCriticalHit
+```
+
+---
+
+### 2.2 AAA Pattern（Arrange / Act / Assert）
+
+```csharp
+[Test]
+public void Buff_ShouldIncreaseAttack_WhenApplied()
+{
+    // Arrange
+    var character = new Character(attack: 10);
+    var buff = new AttackBuff(5);
+
+    // Act
+    buff.Apply(character);
+
+    // Assert
+    Assert.AreEqual(15, character.Attack);
+}
+```
+
+---
+
+### 2.3 測試分類（必須清楚分層）
+
+| 類型 | 說明 |
+|------|------|
+| Unit Test | 純邏輯（不碰 Unity API） |
+| Integration Test | 多系統交互 |
+| Simulation Test | deterministic replay |
+
+---
+
+## 3. 架構約束（為了可測試）
+
+### 3.1 嚴禁直接依賴 Unity API（核心邏輯）
+禁止：
+- 使用 Time.deltaTime / Random
+
+改為：
+
+```csharp
+public interface ITimeProvider
+{
+    float DeltaTime { get; }
+}
+```
+
+---
+
+### 3.2 所有外部依賴必須可 Mock
+
+使用 **NSubstitute**
+
+```csharp
+var rng = Substitute.For<IRandom>();
+rng.NextFloat().Returns(0.5f);
+```
+
+---
