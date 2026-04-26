@@ -92,3 +92,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Pp]lugins/[Dd]emigiant.meta
 /[Aa]ssets/[Pp]lugins/[Ss]irenix/
 /[Aa]ssets/[Pp]lugins/[Ss]irenix.meta
+
+# Rider Project Files
+.idea/
