@@ -5,7 +5,7 @@ namespace GamePlay.Scripts.Service.Config
 {
     [CreateAssetMenu(
         fileName = "ExpGemPoolRegistryDefinition",
-        menuName = "Scriptable Objects/ExpGemPoolRegistryDefinition")]
+        menuName = "Scriptable Objects/Service/ExpGemPoolRegistryDefinition")]
     public class ExpGemPoolRegistryDefinition : ScriptableObject
     {
         public ExperienceGemDefinition[] definitions;

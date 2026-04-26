@@ -6,7 +6,7 @@ namespace GamePlay.Scripts.Service.Config
 {
     [CreateAssetMenu(
         fileName = "WeaponRegistryDefinition",
-        menuName = "Scriptable Objects/WeaponRegistryDefinition")]
+        menuName = "Scriptable Objects/Service/WeaponRegistryDefinition")]
     public class WeaponRegistryDefinition : ScriptableObject
     {
         public WeaponDefinition[] definitions;

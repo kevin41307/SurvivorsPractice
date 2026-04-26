@@ -6,7 +6,7 @@ namespace GamePlay.Scripts.Service.Config
     
     [CreateAssetMenu(
         fileName = "TreasureChestRegistryDefinition",
-        menuName = "Scriptable Objects/TreasureChestRegistryDefinition")]
+        menuName = "Scriptable Objects/Service/TreasureChestRegistryDefinition")]
     public class TreasureChestRegistryDefinition : ScriptableObject
     {
         public TreasureChestRegistryDefinition[] definitions;

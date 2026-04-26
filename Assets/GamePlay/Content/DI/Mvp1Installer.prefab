@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5268963298053569890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3623138509239798602}
+  - component: {fileID: 1628507736163604020}
+  m_Layer: 0
+  m_Name: Mvp1Installer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3623138509239798602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268963298053569890}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1628507736163604020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268963298053569890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca573018b5864da47afb143351dce45e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Application.DI.Mvp1Installer
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects: []
+  characterRegistryDefinition: {fileID: 11400000, guid: 15e4fe59046705940ba13c1168fd5a0d, type: 2}
+  enemyPoolRegistryDefinition: {fileID: 11400000, guid: b4a4aba7c63065743a307b49ba00ff5b, type: 2}
+  weaponRegistryDefinition: {fileID: 11400000, guid: a1d8cf7396159a54b948ebbfe43af601, type: 2}
+  expGemPoolRegistryDefinition: {fileID: 11400000, guid: b3cb94d772da7a54eab8edb212358e8e, type: 2}
+  treasureChestRegistryDefinition: {fileID: 11400000, guid: 7637fdf29ef112844bcde4090402ae42, type: 2}
+  selectedCharacter: {fileID: 11400000, guid: c532b617fd7518042aaf6dd8d9e2bf9a, type: 2}

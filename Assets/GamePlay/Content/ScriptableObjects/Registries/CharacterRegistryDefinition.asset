@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c02e18b1f944e6db55ed2db195b8dd5, type: 3}
   m_Name: CharacterRegistryDefinition
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Service.Config.CharacterRegistryDefinition
-  characters: []
+  characters:
+  - {fileID: 11400000, guid: c532b617fd7518042aaf6dd8d9e2bf9a, type: 2}
