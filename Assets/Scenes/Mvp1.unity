@@ -127,6 +127,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
+      propertyPath: selectedEnemy
+      value: 
+      objectReference: {fileID: 11400000, guid: db8f382565e231d44ab70c26991a6d34, type: 2}
+    - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
+      propertyPath: selectedCharacter
+      value: 
+      objectReference: {fileID: 11400000, guid: a1633d9a924c4814cad542a6d1863d4b, type: 2}
     - target: {fileID: 3623138509239798602, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

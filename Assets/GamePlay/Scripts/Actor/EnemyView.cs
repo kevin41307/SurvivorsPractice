@@ -1,4 +1,5 @@
 using UnityEngine;
+using GamePlay.Scripts.Actor.Config;
 using VContainer;
 
 namespace GamePlay.Scripts.Actor
@@ -7,12 +8,12 @@ namespace GamePlay.Scripts.Actor
     {
         public Enemy Enemy { get; set; }
 
-        [Inject]
-        public void Construct(Enemy enemy)
-        {
-            Enemy = enemy;
-        }
+        internal int PoolKey { get; set; }
 
+        public void Initialize(int poolKey)
+        {
+            PoolKey = poolKey;
+        }
 
         
     }

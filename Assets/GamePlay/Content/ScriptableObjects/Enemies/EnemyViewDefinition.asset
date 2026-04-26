@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0048e873402b4ebb88965fca0530faed, type: 3}
   m_Name: EnemyViewDefinition
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Actor.Config.EnemyViewDefinition
+  definition: {fileID: 11400000, guid: c52f7a9f5f4ac1a488e7aa1a7e726253, type: 2}
   prefab: {fileID: 3366068765620989473, guid: 607b342c625a482408197b586c391462, type: 3}

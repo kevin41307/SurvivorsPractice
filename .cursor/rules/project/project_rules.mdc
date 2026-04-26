@@ -72,7 +72,14 @@ alwaysApply: true
   - 失敗判定：
     - `Tools\Unity\RunTests.ps1` 會依 Unity 執行結果與 results XML 內容判定成功/失敗，失敗時會回傳 exit code `1`，可直接用於 CI。
 
-
+## 注意錯誤
+- **`Object` 名稱歧義（CS0104）**：同一檔案若同時 `using System;` 與 `using UnityEngine;`，單獨寫 `Object`（例如 `Object.Destroy`）編譯器會在 `System.Object` 與 `UnityEngine.Object` 之間無法判斷，出現 *Ambiguous reference*。
+  - **建議寫法**：呼叫 Unity 靜態 API 時一律寫完整型別，例如 `UnityEngine.Object.Destroy(...)`、`UnityEngine.Object.Instantiate(...)`。
+- **VContainer 無法 resolve primitive 參數（例如 `System.Int32`）**：若某個可注入類別的建構子含有 `int/float/string/bool` 等 primitive 參數，即使是 optional parameter 有預設值，VContainer 仍會嘗試 resolve 該型別；未註冊時會出現 `No such registration of type: System.Int32`。
+  - **避免方式**：建構子不要放 primitive；改成類內常數、或把參數包成 `Settings`/`Config` 物件再注入（推薦）。
+  - **替代方式**：用 factory 註冊（在註冊端自行 new 並傳入數值），或明確註冊設定物件 instance。
+  - **例子**：`EnemyPool(EnemyFactory enemyFactory, int defaultCapacity, int maxSize)` 會觸發此問題；應改成 `EnemyPool(EnemyFactory enemyFactory)` + 使用常數/Settings。
+  
 ## Odin Inspector
 * 使用Odin Inspector Attributes來表達屬性或欄位值域上的要求
 ```csharp

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85903ace04e6c684d9e243fa29a11aa1, type: 3}
   m_Name: CharacterViewDefinition
   m_EditorClassIdentifier: Assembly-CSharp::CharacterViewDefinition
+  definition: {fileID: 11400000, guid: c52f7a9f5f4ac1a488e7aa1a7e726253, type: 2}
   prefab: {fileID: 1280974826134649969, guid: afb968886cce8534e8961a204a126cd1, type: 3}

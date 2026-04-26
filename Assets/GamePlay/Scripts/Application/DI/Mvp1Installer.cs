@@ -20,8 +20,8 @@ namespace GamePlay.Scripts.Application.DI
         [SerializeField] private ExpGemPoolRegistryDefinition expGemPoolRegistryDefinition;
         [SerializeField] private TreasureChestRegistryDefinition treasureChestRegistryDefinition;
 
-        [SerializeField] private CharacterDefinition selectedCharacter;
-        [SerializeField] private EnemyDefinition selectedEnemy;
+        [SerializeField] private CharacterViewDefinition selectedCharacter;
+        [SerializeField] private EnemyViewDefinition selectedEnemy;
 
 
         protected override void Configure(IContainerBuilder builder)
@@ -45,10 +45,15 @@ namespace GamePlay.Scripts.Application.DI
 
             builder.Register<IPlayerLocator, PlayerLocatorService>(Lifetime.Singleton);
             
+            builder.Register<EnemyFactory>(Lifetime.Singleton);
+            builder.Register<EnemyPool>(Lifetime.Singleton);
+
+            builder.Register<Character>(Lifetime.Transient);
+            builder.Register<CharacterFactory>(Lifetime.Singleton);
+            
             //Debug Stuff
             builder.RegisterInstance(selectedCharacter);
             builder.RegisterInstance(selectedEnemy);
-            builder.Register<Enemy>(Lifetime.Transient);
 
             builder.RegisterEntryPoint<Mvp1Bootstrapper>();
 
