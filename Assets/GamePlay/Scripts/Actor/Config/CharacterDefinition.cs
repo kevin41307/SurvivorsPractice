@@ -1,7 +1,8 @@
+using GamePlay.Scripts.Core;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CharacterDefinition", menuName = "Scriptable Objects/CharacterDefinition")]
-public class CharacterDefinition : ScriptableObject
+public class CharacterDefinition : GuidScriptableObject
 {
     public CharacterViewDefinition viewDefinition;
 
