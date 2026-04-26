@@ -1,3 +1,5 @@
+using GamePlay.Scripts.Actor;
+using GamePlay.Scripts.Actor.Config;
 using GamePlay.Scripts.Service;
 using GamePlay.Scripts.Service.Config;
 using GamePlay.Scripts.Service.Ports;
@@ -19,6 +21,8 @@ namespace GamePlay.Scripts.Application.DI
         [SerializeField] private TreasureChestRegistryDefinition treasureChestRegistryDefinition;
 
         [SerializeField] private CharacterDefinition selectedCharacter;
+        [SerializeField] private EnemyDefinition selectedEnemy;
+
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -43,6 +47,8 @@ namespace GamePlay.Scripts.Application.DI
             
             //Debug Stuff
             builder.RegisterInstance(selectedCharacter);
+            builder.RegisterInstance(selectedEnemy);
+            builder.Register<Enemy>(Lifetime.Transient);
 
             builder.RegisterEntryPoint<Mvp1Bootstrapper>();
 

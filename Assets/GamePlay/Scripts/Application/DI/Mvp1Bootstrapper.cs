@@ -1,5 +1,6 @@
 using System;
 using GamePlay.Scripts.Actor;
+using GamePlay.Scripts.Actor.Config;
 using GamePlay.Scripts.Service.Config;
 using VContainer;
 using VContainer.Unity;
@@ -17,17 +18,20 @@ namespace GamePlay.Scripts.Application.DI
         private readonly IPlayerLocator playerLocator;
         private readonly InputActionAsset inputActions;
         private readonly CharacterDefinition selectedCharacter;
+        private readonly EnemyDefinition selectedEnemy;
 
         public Mvp1Bootstrapper(
             IObjectResolver resolver, 
             IPlayerLocator playerLocator,
             InputActionAsset inputActions,
-            CharacterDefinition selectedCharacter)
+            CharacterDefinition selectedCharacter, 
+            EnemyDefinition selectedEnemy)
         {
             this.resolver = resolver;
             this.playerLocator = playerLocator;
             this.inputActions = inputActions;
             this.selectedCharacter = selectedCharacter;
+            this.selectedEnemy = selectedEnemy;
         }
 
         public void Start()
@@ -52,6 +56,15 @@ namespace GamePlay.Scripts.Application.DI
                 Character = character
             };
             playerLocator.SetPlayer(player);
+
+            var enemyGo = resolver.Instantiate(selectedEnemy.viewDefinition.prefab);
+            if (!enemyGo.TryGetComponent(out EnemyView enemyView))
+            {
+                throw new Exception($"[{selectedEnemy.name}] 未找到 EnemyView 元件。");
+            }
+            
+
+
         }
 
         public void Tick()
