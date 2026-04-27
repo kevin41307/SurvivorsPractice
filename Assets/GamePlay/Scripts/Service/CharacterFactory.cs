@@ -29,7 +29,7 @@ namespace GamePlay.Scripts.Service
             
             if ( definition.prefab == null)
             {
-                throw new Exception($"[CharacterFactory] CharacterDefinition '{definition.name}' 的 viewDefinition/prefab 未設定。");
+                throw new Exception($"[CharacterFactory] ViewDefinition '{definition.name}' 的 prefab 未設定。");
             }
 
             GameObject go = parent == null
@@ -40,6 +40,8 @@ namespace GamePlay.Scripts.Service
             {
                 throw new Exception($"[CharacterFactory] Prefab '{definition.prefab.name}' 未找到 CharacterView 元件。");
             }
+            
+            view.Initialize();
 
             return view;
         }

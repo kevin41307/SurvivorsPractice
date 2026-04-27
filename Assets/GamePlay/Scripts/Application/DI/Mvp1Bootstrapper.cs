@@ -2,7 +2,6 @@ using System;
 using GamePlay.Scripts.Actor;
 using GamePlay.Scripts.Actor.Config;
 using GamePlay.Scripts.Service;
-using GamePlay.Scripts.Service.Config;
 using VContainer;
 using VContainer.Unity;
 using GamePlay.Scripts.Ports;

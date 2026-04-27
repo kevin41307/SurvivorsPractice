@@ -30,7 +30,7 @@ namespace GamePlay.Scripts.Service
             
             if (definition.prefab == null)
             {
-                throw new Exception($"[EnemyFactory] EnemyDefinition '{definition.name}' 的 viewDefinition/prefab 未設定。");
+                throw new Exception($"[EnemyFactory] ViewDefinition '{definition.name}' 的 prefab 未設定。");
             }
 
             GameObject go = parent == null

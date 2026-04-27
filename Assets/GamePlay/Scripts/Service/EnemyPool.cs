@@ -29,7 +29,7 @@ namespace GamePlay.Scripts.Service
             
             if (definition.prefab == null)
             {
-                throw new Exception($"[EnemyPool] EnemyDefinition '{definition.name}' 的 viewDefinition/prefab 未設定。");
+                throw new Exception($"[EnemyPool] ViewDefinition '{definition.name}' 的 prefab 未設定。");
             }
 
             var key = definition.prefab.GetInstanceID();

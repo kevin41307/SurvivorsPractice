@@ -7,6 +7,10 @@ namespace GamePlay.Scripts.Actor
     {
         [Inject]
         public Character Character { get; set; }
+
+        public void Initialize()
+        {
+        }       
         
     }
 }
