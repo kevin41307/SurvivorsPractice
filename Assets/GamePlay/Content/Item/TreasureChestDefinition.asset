@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce28f6178e144bd4e8c907f12ca54a75, type: 3}
-  m_Name: WeaponRegistryDefinition
-  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Service.Config.WeaponRegistryDefinition
-  definitions: []
+  m_Script: {fileID: 11500000, guid: f5420e9125bf496190f71494d0972cfd, type: 3}
+  m_Name: TreasureChestDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Item.Config.TreasureChestDefinition

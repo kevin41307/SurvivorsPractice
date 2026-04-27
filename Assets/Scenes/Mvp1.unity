@@ -128,17 +128,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
-      propertyPath: selectedEnemy
+      propertyPath: selectedWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: db8f382565e231d44ab70c26991a6d34, type: 2}
+      objectReference: {fileID: 11400000, guid: 8752accfcef9cab49848b835243ebb21, type: 2}
     - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
-      propertyPath: selectedCharacter
+      propertyPath: selectedTreasureChest
       value: 
-      objectReference: {fileID: 11400000, guid: a1633d9a924c4814cad542a6d1863d4b, type: 2}
-    - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
-      propertyPath: selectedExperienceGem
-      value: 
-      objectReference: {fileID: 11400000, guid: b0c3482bc0d19974ca1c6cc065a5c231, type: 2}
+      objectReference: {fileID: 11400000, guid: 44550aeb6ee44ed46a636c302de2e9e1, type: 2}
     - target: {fileID: 3623138509239798602, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

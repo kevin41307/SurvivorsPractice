@@ -1,6 +1,7 @@
 using System;
 using GamePlay.Scripts.Actor;
 using GamePlay.Scripts.Actor.Config;
+using GamePlay.Scripts.Equipment.Config;
 using GamePlay.Scripts.Item.Config;
 using GamePlay.Scripts.Service;
 using VContainer;
@@ -16,13 +17,23 @@ namespace GamePlay.Scripts.Application.DI
     public class Mvp1Bootstrapper : IStartable, ITickable
     {
         [Inject] private readonly IObjectResolver resolver;
-        [Inject] private readonly IPlayerLocator playerLocator;
+        
         [Inject] private readonly InputActionAsset inputActions;
+        
+        [Inject] private readonly IPlayerLocator playerLocator;
+        
         [Inject] private readonly CharacterFactory characterFactory;
+        [Inject] private readonly WeaponFactory weaponFactory;
+        [Inject] private readonly TreasureChestFactory treasureChestFactory;
         [Inject] private readonly EnemyPool enemyPool;
         [Inject] private readonly ExpGemPool expGemPool;
+        
         [Inject] private readonly CharacterViewDefinition selectedCharacter;
         [Inject] private readonly EnemyViewDefinition selectedEnemy;
+        [Inject] private readonly ExperienceGemViewDefinition selectedExperienceGem;
+        [Inject] private readonly WeaponViewDefinition selectedWeapon;
+        [Inject] private readonly TreasureChestViewDefinition selectedTreasureChest;
+        
 
         public void Start()
         {
@@ -39,22 +50,14 @@ namespace GamePlay.Scripts.Application.DI
             };
             playerLocator.SetPlayer(player);
 
-            var enemyView = enemyPool.Get(selectedEnemy);
+            weaponFactory.Create(selectedWeapon);
+            treasureChestFactory.Create(selectedTreasureChest);
 
-            ExperienceGemViewDefinition experienceGemDef = null;
-            try
-            {
-                experienceGemDef = resolver.Resolve<ExperienceGemViewDefinition>();
-            }
-            catch
-            {
-                // Ignore: no exp gem definition bound in container.
-            }
+            enemyPool.Get(selectedEnemy);
 
-            if (experienceGemDef != null)
-            {
-                expGemPool.Get(experienceGemDef);
-            }
+            expGemPool.Get(selectedExperienceGem);
+
+
 
         }
 

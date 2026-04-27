@@ -6,7 +6,7 @@ using UnityEngine;
 namespace GamePlay.Scripts.Actor.Config
 {
     [CreateAssetMenu(fileName = "EnemyDefinition", menuName = "Scriptable Objects/EnemyDefinition")]
-    public class EnemyDefinition : GuidScriptableObject
+    public class EnemyDefinition : SerializedScriptableObject
     {
         [Required, SerializeReference] 
         IDropPolicy dropPolicy;
