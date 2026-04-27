@@ -42,8 +42,6 @@ namespace GamePlay.Scripts.Service
                 throw new Exception($"[EnemyFactory] Prefab '{definition.prefab.name}' 未找到 EnemyView 元件。");
             }
 
-            view.Enemy = new Enemy();
-
             return view;
         }
     }

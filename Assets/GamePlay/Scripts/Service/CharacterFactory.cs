@@ -41,9 +41,6 @@ namespace GamePlay.Scripts.Service
                 throw new Exception($"[CharacterFactory] Prefab '{definition.prefab.name}' 未找到 CharacterView 元件。");
             }
 
-            view.Character = new Character();
-
-
             return view;
         }
     }

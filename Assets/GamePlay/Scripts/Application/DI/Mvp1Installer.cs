@@ -45,6 +45,7 @@ namespace GamePlay.Scripts.Application.DI
 
             builder.Register<IPlayerLocator, PlayerLocatorService>(Lifetime.Singleton);
             
+            builder.Register<Enemy>(Lifetime.Transient);
             builder.Register<EnemyFactory>(Lifetime.Singleton);
             builder.Register<EnemyPool>(Lifetime.Singleton);
 

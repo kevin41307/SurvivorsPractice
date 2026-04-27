@@ -6,6 +6,7 @@ namespace GamePlay.Scripts.Actor
 {
     public class EnemyView : MonoBehaviour
     {
+        [Inject]
         public Enemy Enemy { get; set; }
 
         internal int PoolKey { get; set; }
