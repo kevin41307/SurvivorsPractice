@@ -1,5 +1,6 @@
 using GamePlay.Scripts.Core;
 using GamePlay.Scripts.Ports;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GamePlay.Scripts.Actor.Config
@@ -7,12 +8,10 @@ namespace GamePlay.Scripts.Actor.Config
     [CreateAssetMenu(fileName = "EnemyDefinition", menuName = "Scriptable Objects/EnemyDefinition")]
     public class EnemyDefinition : GuidScriptableObject
     {
-        public EnemyViewDefinition viewDefinition;
-        
-        [SerializeReference] 
+        [Required, SerializeReference] 
         IDropPolicy dropPolicy;
         
-        [SerializeReference] 
+        [Required, SerializeReference] 
         IMovePolicy movePolicy;
         
     }

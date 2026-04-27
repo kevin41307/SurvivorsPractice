@@ -1,6 +1,7 @@
 using System;
 using GamePlay.Scripts.Actor;
 using GamePlay.Scripts.Actor.Config;
+using GamePlay.Scripts.Item.Config;
 using GamePlay.Scripts.Service;
 using VContainer;
 using VContainer.Unity;
@@ -14,31 +15,14 @@ namespace GamePlay.Scripts.Application.DI
 
     public class Mvp1Bootstrapper : IStartable, ITickable
     {
-        private readonly IObjectResolver resolver;
-        private readonly IPlayerLocator playerLocator;
-        private readonly InputActionAsset inputActions;
-        private readonly CharacterViewDefinition selectedCharacter;
-        private readonly EnemyViewDefinition selectedEnemy;
-        private readonly CharacterFactory characterFactory;
-        private readonly EnemyPool enemyPool;
-
-        public Mvp1Bootstrapper(
-            IObjectResolver resolver, 
-            IPlayerLocator playerLocator,
-            InputActionAsset inputActions,
-            CharacterViewDefinition selectedCharacter, 
-            EnemyViewDefinition selectedEnemy,
-            CharacterFactory characterFactory,
-            EnemyPool enemyPool)
-        {
-            this.resolver = resolver;
-            this.playerLocator = playerLocator;
-            this.inputActions = inputActions;
-            this.selectedCharacter = selectedCharacter;
-            this.selectedEnemy = selectedEnemy;
-            this.characterFactory = characterFactory;
-            this.enemyPool = enemyPool;
-        }
+        [Inject] private readonly IObjectResolver resolver;
+        [Inject] private readonly IPlayerLocator playerLocator;
+        [Inject] private readonly InputActionAsset inputActions;
+        [Inject] private readonly CharacterFactory characterFactory;
+        [Inject] private readonly EnemyPool enemyPool;
+        [Inject] private readonly ExpGemPool expGemPool;
+        [Inject] private readonly CharacterViewDefinition selectedCharacter;
+        [Inject] private readonly EnemyViewDefinition selectedEnemy;
 
         public void Start()
         {
@@ -56,6 +40,21 @@ namespace GamePlay.Scripts.Application.DI
             playerLocator.SetPlayer(player);
 
             var enemyView = enemyPool.Get(selectedEnemy);
+
+            ExperienceGemViewDefinition experienceGemDef = null;
+            try
+            {
+                experienceGemDef = resolver.Resolve<ExperienceGemViewDefinition>();
+            }
+            catch
+            {
+                // Ignore: no exp gem definition bound in container.
+            }
+
+            if (experienceGemDef != null)
+            {
+                expGemPool.Get(experienceGemDef);
+            }
 
         }
 
