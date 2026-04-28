@@ -63,6 +63,13 @@
       "dependencies": {},
       "hash": "f8fdc2efb862522acd26fab6cd940886c84cde37"
     },
+    "com.kryzarel.rpg-stats": {
+      "version": "https://github.com/Kryzarel/rpg-stats.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c10c4b0cf47676c3aa5a96642cee7468feca68fb"
+    },
     "com.unity.2d.animation": {
       "version": "13.0.4",
       "depth": 0,

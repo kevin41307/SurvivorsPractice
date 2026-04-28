@@ -96,3 +96,7 @@ alwaysApply: true
 ## 註解規範（強制）
 - 請參考 ai_comment_rules.mdc
  
+
+## 寫作建議
+- 範例: 如果怪物會對玩家造成傷害, 那玩家應該提供一個操作來接收傷害
+- 範例: 如果MetaProgress會影響Run的狀態, 那Run應該提供一個操作來接收MetaProgress的影響

@@ -135,6 +135,14 @@ PrefabInstance:
       propertyPath: selectedTreasureChest
       value: 
       objectReference: {fileID: 11400000, guid: 44550aeb6ee44ed46a636c302de2e9e1, type: 2}
+    - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
+      propertyPath: metaPowerUps.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
+      propertyPath: 'metaPowerUps.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: edd2a2ef427193c4592f2c25a373f71f, type: 2}
     - target: {fileID: 3623138509239798602, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -5,6 +5,7 @@ namespace GamePlay.Scripts.Status.Ports
         MaxHealthPoint,
         MaxManaPoint,
         MaxAttackPoint,
+        MaxRerollCount,
         
     }
 }

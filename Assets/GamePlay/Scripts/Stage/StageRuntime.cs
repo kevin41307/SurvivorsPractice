@@ -1,6 +1,6 @@
 namespace GamePlay.Scripts.Stage
 {
-    public class Stage
+    public class StageRuntime
     {
         
     }

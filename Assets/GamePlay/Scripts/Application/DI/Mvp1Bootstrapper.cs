@@ -6,9 +6,9 @@ using GamePlay.Scripts.Item.Config;
 using GamePlay.Scripts.Service;
 using VContainer;
 using VContainer.Unity;
-using GamePlay.Scripts.Ports;
+
 using GamePlay.Scripts.Service.Ports;
-using UnityEngine;
+using GamePlay.Scripts.Stage;
 using UnityEngine.InputSystem;
 
 namespace GamePlay.Scripts.Application.DI
@@ -27,6 +27,9 @@ namespace GamePlay.Scripts.Application.DI
         [Inject] private readonly TreasureChestFactory treasureChestFactory;
         [Inject] private readonly EnemyPool enemyPool;
         [Inject] private readonly ExpGemPool expGemPool;
+
+        [Inject] private readonly MetaProgressService metaProgressService;
+        [Inject] private readonly Run run;
         
         [Inject] private readonly CharacterViewDefinition selectedCharacter;
         [Inject] private readonly EnemyViewDefinition selectedEnemy;
@@ -49,6 +52,14 @@ namespace GamePlay.Scripts.Application.DI
                 CharacterView = view
             };
             playerLocator.SetPlayer(player);
+
+            var stage = new StageRuntime();
+
+            // MVP：先固定讀 slot 1，讓永久強化可在 Run 初始化時套用。
+            // 後續可改為由選單/UI 決定 slotId。
+            var meta = metaProgressService.Load(slotId: 1);
+            run.Start(meta, player, view.Character, stage);
+            player.MetaMoney = meta.Gold;
 
             weaponFactory.Create(selectedWeapon);
             treasureChestFactory.Create(selectedTreasureChest);
