@@ -1,5 +1,7 @@
 using GamePlay.Scripts.Core;
+using GamePlay.Scripts.Movement.Ports;
 using GamePlay.Scripts.Ports;
+using Kogaine.STGPractice.Movements;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -12,7 +14,7 @@ namespace GamePlay.Scripts.Actor.Config
         IDropPolicy dropPolicy;
         
         [Required, SerializeReference] 
-        IMovePolicy movePolicy;
+        BaseMovePolicy baseMovePolicy;
         
     }
 }
