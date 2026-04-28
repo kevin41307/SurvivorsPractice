@@ -18,13 +18,13 @@ namespace GamePlay.Scripts.Application
         
         public void Start(MetaProgressData metaProgress, Player player, Character character, StageRuntime stage)
         {
-            player.MetaMoney = metaProgress.Gold;
-
             ApplyMetaProgress(metaProgress, character);
         }
 
         private void ApplyMetaProgress(MetaProgressData metaProgress, Character character)
         {
+            player.MetaMoney = metaProgress.Gold;
+            
             foreach (var (id, level) in metaProgress.PowerUpLevels)
             {
                 if (level <= 0)

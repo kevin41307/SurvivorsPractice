@@ -59,7 +59,6 @@ namespace GamePlay.Scripts.Application.DI
             // 後續可改為由選單/UI 決定 slotId。
             var meta = metaProgressService.Load(slotId: 1);
             run.Start(meta, player, view.Character, stage);
-            player.MetaMoney = meta.Gold;
 
             weaponFactory.Create(selectedWeapon);
             treasureChestFactory.Create(selectedTreasureChest);
