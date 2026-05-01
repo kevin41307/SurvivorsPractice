@@ -40,4 +40,4 @@ MonoBehaviour:
       data:
         separationRadius: 2
         separationStrength: 20
-        updateIntervalFrames: 10
+        updateIntervalFrames: 2

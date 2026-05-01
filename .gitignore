@@ -95,3 +95,6 @@ crashlytics-build.properties
 
 # Rider Project Files
 .idea/
+
+#Art Assets
+/[Aa]ssets/GamePlay/Content/ThirdParty/

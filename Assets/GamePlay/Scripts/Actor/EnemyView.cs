@@ -1,11 +1,12 @@
 using UnityEngine;
 using GamePlay.Scripts.Actor.Config;
+using GamePlay.Scripts.Targeting;
 using VContainer;
 
 namespace GamePlay.Scripts.Actor
 {
     [RequireComponent(typeof(EnemyMovementController))]
-    public class EnemyView : MonoBehaviour
+    public class EnemyView : MonoBehaviour, ITargetable
     {
         [Inject]
         public Enemy Enemy { get; set; }
@@ -19,6 +20,6 @@ namespace GamePlay.Scripts.Actor
             ViewDefinition = viewDefinition;
         }
 
-        
+        Transform ITargetable.Transform => transform;
     }
 }
