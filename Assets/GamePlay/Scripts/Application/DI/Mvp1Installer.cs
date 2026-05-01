@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using GamePlay.Scripts.Actor;
-using GamePlay.Scripts.Actor.Config;
 using GamePlay.Scripts.Equipment;
-using GamePlay.Scripts.Equipment.Config;
 using GamePlay.Scripts.Item;
-using GamePlay.Scripts.Item.Config;
 using GamePlay.Scripts.MetaProgress;
 using GamePlay.Scripts.MetaProgress.Config;
 using SpatialHash2D;
@@ -22,11 +19,7 @@ namespace GamePlay.Scripts.Application.DI
     {
         [Required, SerializeField] private InputActionAsset inputAction;
 
-        [Required, SerializeField] private CharacterViewDefinition selectedCharacter;
-        [Required, SerializeField] private EnemyViewDefinition selectedEnemy;
-        [Required, SerializeField] private ExperienceGemViewDefinition selectedExperienceGem;
-        [Required, SerializeField] private WeaponViewDefinition selectedWeapon;
-        [Required, SerializeField] private TreasureChestViewDefinition selectedTreasureChest;
+        [Required, SerializeField] private Mvp1SelectedViewDefinitionRefs selectedViewDefinitions;
 
         [SerializeField] private List<MetaPowerUpDefinition> metaPowerUps = new();
 
@@ -63,12 +56,8 @@ namespace GamePlay.Scripts.Application.DI
             
             //Debug Stuff
             builder.Register<Run>(Lifetime.Scoped);
-            builder.RegisterInstance(selectedCharacter);
-            builder.RegisterInstance(selectedEnemy);
-            builder.RegisterInstance(selectedExperienceGem);
-            builder.RegisterInstance(selectedWeapon);
-            builder.RegisterInstance(selectedTreasureChest);
-
+            builder.RegisterInstance(selectedViewDefinitions.ToDefinitions());
+            
             // 明確用無參建構子：避免 VContainer 選到 SpatialHashWorld(float) 而要求註冊 System.Single
             builder.Register<SpatialHashWorld>(_ => new SpatialHashWorld(), Lifetime.Singleton);
             builder.RegisterEntryPoint<SpatialHashWorldTickEntryPoint>(Lifetime.Singleton);

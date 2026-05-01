@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fc83c878d99488294006270e997f52e, type: 3}
-  m_Name: EnemyDefinition
+  m_Name: TurretEnemyDefinition
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Actor.Config.EnemyDefinition
   serializationData:
     SerializedFormat: 2
@@ -23,21 +23,9 @@ MonoBehaviour:
     SerializationNodes: []
   dropPolicy:
     rid: -2
-  movePipeline:
-  - rid: 4676745870847246417
-  - rid: 4676745870847246418
+  movePipeline: []
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 4676745870847246417
-      type: {class: ChaseTargetMoveStepDescriptor, ns: GamePlay.Scripts.Movement.Steps, asm: Assembly-CSharp}
-      data:
-        moveSpeed: 4
-    - rid: 4676745870847246418
-      type: {class: SeparationMoveStepDescriptor, ns: GamePlay.Scripts.Movement.Steps, asm: Assembly-CSharp}
-      data:
-        separationRadius: 2
-        separationStrength: 20
-        updateIntervalFrames: 10

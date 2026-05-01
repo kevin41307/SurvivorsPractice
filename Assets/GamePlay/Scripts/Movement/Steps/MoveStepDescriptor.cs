@@ -29,9 +29,6 @@ namespace GamePlay.Scripts.Movement.Steps
         [Min(0f)] public float separationStrength = 1.25f;
         [Min(1)] public int updateIntervalFrames = 20;
 
-        /// <summary>與舊 SeparationMovePolicy 對齊；網格 cell 由 <see cref="SpatialHash2D.SpatialHashWorld"/> 決定。</summary>
-        [Min(0.01f)] public float cellSize = 4f;
-
         public override IMoveStep Build(in MoveStepResolveContext context) =>
             new SeparationMoveStep(context.SpatialHashWorld, separationRadius, separationStrength, updateIntervalFrames);
     }

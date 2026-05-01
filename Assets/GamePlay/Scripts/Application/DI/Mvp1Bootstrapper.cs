@@ -1,8 +1,5 @@
 using System;
 using GamePlay.Scripts.Actor;
-using GamePlay.Scripts.Actor.Config;
-using GamePlay.Scripts.Equipment.Config;
-using GamePlay.Scripts.Item.Config;
 using GamePlay.Scripts.Service;
 using VContainer;
 using VContainer.Unity;
@@ -31,13 +28,13 @@ namespace GamePlay.Scripts.Application.DI
 
         [Inject] private readonly MetaProgressService metaProgressService;
         [Inject] private readonly Run run;
-        
-        [Inject] private readonly CharacterViewDefinition selectedCharacter;
-        [Inject] private readonly EnemyViewDefinition selectedEnemy;
-        [Inject] private readonly ExperienceGemViewDefinition selectedExperienceGem;
-        [Inject] private readonly WeaponViewDefinition selectedWeapon;
-        [Inject] private readonly TreasureChestViewDefinition selectedTreasureChest;
-        
+
+        private readonly Mvp1SelectedViewDefinitions selectedViews;
+
+        public Mvp1Bootstrapper(Mvp1SelectedViewDefinitions selectedViews)
+        {
+            this.selectedViews = selectedViews;
+        }
 
         public void Start()
         {
@@ -46,18 +43,21 @@ namespace GamePlay.Scripts.Application.DI
                 throw new Exception("[Mvp1Bootstrapper] InputActionAsset 未設定。");
             }
 
-            var view = characterFactory.Create(selectedCharacter);
+            var view = characterFactory.Create(selectedViews.SelectedCharacter);
             
             var player = new Player
             {
                 CharacterView = view
             };
             playerLocator.SetPlayer(player);
-            view.transform.position = new Vector3(100, 100, 0);
+            view.transform.position = new Vector3(50, 50, 0);
+
+            var turret = enemyPool.Get(selectedViews.SelectedTurret);
+            turret.transform.position = new Vector3(10, 10, 0);
 
             for(int i = 0; i < 100; i++)
             {
-                var enemy = enemyPool.Get(selectedEnemy);
+                var enemy = enemyPool.Get(selectedViews.SelectedEnemy);
                 // #TODO: 半徑X內隨機位置
                 var randomPosition = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0);
                 enemy.transform.position = randomPosition;
@@ -71,12 +71,12 @@ namespace GamePlay.Scripts.Application.DI
             // var meta = metaProgressService.Load(slotId: 1);
             // run.Start(meta, player, view.Character, stage);
 
-            // weaponFactory.Create(selectedWeapon);
-            // treasureChestFactory.Create(selectedTreasureChest);
+            // weaponFactory.Create(selectedViews.SelectedWeapon);
+            // treasureChestFactory.Create(selectedViews.SelectedTreasureChest);
 
 
 
-            // expGemPool.Get(selectedExperienceGem);
+            // expGemPool.Get(selectedViews.SelectedExperienceGem);
 
 
 

@@ -71,6 +71,7 @@ namespace GamePlay.Scripts.Actor
                 return;
             }
 
+
             var pos3 = transform.position;
             var current = new Vector2(pos3.x, pos3.y);
 
@@ -84,6 +85,9 @@ namespace GamePlay.Scripts.Actor
                 currentPosition: current,
                 targetPosition: target);
 
+            if (agent == null)
+                return;
+            
             var displacement = pipeline.GetDisplacement(in context, agent);
 
             transform.position = new Vector3(
