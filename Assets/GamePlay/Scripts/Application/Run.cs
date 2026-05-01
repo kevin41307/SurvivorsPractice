@@ -3,6 +3,7 @@ using GamePlay.Scripts.MetaProgress;
 using GamePlay.Scripts.Service;
 using Kryz.RPG.Stats.Core;
 using Kryz.RPG.Stats.Default;
+using System;
 using VContainer;
 using GamePlay.Scripts.Stage;
 
@@ -18,6 +19,8 @@ namespace GamePlay.Scripts.Application
         
         public void Start(MetaProgressData metaProgress, Player player, Character character, StageRuntime stage)
         {
+            this.player = player ?? throw new ArgumentNullException(nameof(player));
+
             ApplyMetaProgress(metaProgress, character);
         }
 
@@ -40,7 +43,7 @@ namespace GamePlay.Scripts.Application
                 float bonus = def.GetTotalBonus(level);
                 if (bonus == 0f)
                 {
-                    return;
+                    continue;
                 }
 
                 var stat = character.StatusContainer.GetOrAdd(def.statType);

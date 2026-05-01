@@ -7,6 +7,7 @@ using GamePlay.Scripts.Item;
 using GamePlay.Scripts.Item.Config;
 using GamePlay.Scripts.MetaProgress;
 using GamePlay.Scripts.MetaProgress.Config;
+using SpatialHash2D;
 using GamePlay.Scripts.Service;
 using GamePlay.Scripts.Service.Ports;
 using Sirenix.OdinInspector;
@@ -67,6 +68,10 @@ namespace GamePlay.Scripts.Application.DI
             builder.RegisterInstance(selectedExperienceGem);
             builder.RegisterInstance(selectedWeapon);
             builder.RegisterInstance(selectedTreasureChest);
+
+            // 明確用無參建構子：避免 VContainer 選到 SpatialHashWorld(float) 而要求註冊 System.Single
+            builder.Register<SpatialHashWorld>(_ => new SpatialHashWorld(), Lifetime.Singleton);
+            builder.RegisterEntryPoint<SpatialHashWorldTickEntryPoint>(Lifetime.Singleton);
 
             builder.RegisterEntryPoint<Mvp1Bootstrapper>();
 

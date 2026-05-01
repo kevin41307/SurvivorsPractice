@@ -9,6 +9,7 @@ using VContainer.Unity;
 
 using GamePlay.Scripts.Service.Ports;
 using GamePlay.Scripts.Stage;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace GamePlay.Scripts.Application.DI
@@ -52,20 +53,30 @@ namespace GamePlay.Scripts.Application.DI
                 CharacterView = view
             };
             playerLocator.SetPlayer(player);
+            view.transform.position = new Vector3(100, 100, 0);
 
-            var stage = new StageRuntime();
+            for(int i = 0; i < 100; i++)
+            {
+                var enemy = enemyPool.Get(selectedEnemy);
+                // #TODO: 半徑X內隨機位置
+                var randomPosition = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0);
+                enemy.transform.position = randomPosition;
 
-            // MVP：先固定讀 slot 1，讓永久強化可在 Run 初始化時套用。
-            // 後續可改為由選單/UI 決定 slotId。
-            var meta = metaProgressService.Load(slotId: 1);
-            run.Start(meta, player, view.Character, stage);
+            }
 
-            weaponFactory.Create(selectedWeapon);
-            treasureChestFactory.Create(selectedTreasureChest);
+            // var stage = new StageRuntime();
 
-            enemyPool.Get(selectedEnemy);
+            // // MVP：先固定讀 slot 1，讓永久強化可在 Run 初始化時套用。
+            // // 後續可改為由選單/UI 決定 slotId。
+            // var meta = metaProgressService.Load(slotId: 1);
+            // run.Start(meta, player, view.Character, stage);
 
-            expGemPool.Get(selectedExperienceGem);
+            // weaponFactory.Create(selectedWeapon);
+            // treasureChestFactory.Create(selectedTreasureChest);
+
+
+
+            // expGemPool.Get(selectedExperienceGem);
 
 
 

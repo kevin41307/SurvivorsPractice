@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using GamePlay.Scripts.Actor;
 using GamePlay.Scripts.Actor.Config;
+using SpatialHash2D;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -13,11 +14,13 @@ namespace GamePlay.Scripts.Service
         private const int MaxSize = 200;
 
         private readonly EnemyFactory enemyFactory;
+        private readonly SpatialHashWorld spatialHashWorld;
         private readonly Dictionary<int, ObjectPool<EnemyView>> poolsByPrefabId = new();
 
-        public EnemyPool(EnemyFactory enemyFactory)
+        public EnemyPool(EnemyFactory enemyFactory, SpatialHashWorld spatialHashWorld)
         {
             this.enemyFactory = enemyFactory ?? throw new ArgumentNullException(nameof(enemyFactory));
+            this.spatialHashWorld = spatialHashWorld ?? throw new ArgumentNullException(nameof(spatialHashWorld));
         }
 
         public EnemyView Get(EnemyViewDefinition definition)
@@ -36,7 +39,7 @@ namespace GamePlay.Scripts.Service
             var pool = GetOrCreatePool(key, definition);
 
             var view = pool.Get();
-            view.Initialize(key);
+            view.Initialize(key, definition);
             return view;
         }
 
@@ -69,7 +72,7 @@ namespace GamePlay.Scripts.Service
             EnemyView Create()
             {
                 var view = enemyFactory.Create(definition);
-                view.Initialize(prefabId);
+                view.Initialize(prefabId, definition);
                 return view;
             }
 
@@ -78,6 +81,7 @@ namespace GamePlay.Scripts.Service
                 if (view != null)
                 {
                     view.gameObject.SetActive(true);
+                    spatialHashWorld.Registry.Register(view.transform);
                 }
             }
 
@@ -85,6 +89,7 @@ namespace GamePlay.Scripts.Service
             {
                 if (view != null)
                 {
+                    spatialHashWorld.Registry.Unregister(view.transform);
                     view.gameObject.SetActive(false);
                 }
             }

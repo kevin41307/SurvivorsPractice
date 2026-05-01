@@ -21,13 +21,24 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  viewDefinition: {fileID: 11400000, guid: db8f382565e231d44ab70c26991a6d34, type: 2}
   dropPolicy:
     rid: -2
-  movePolicy:
-    rid: -2
+  movePipeline:
+  - rid: 4676745870847246417
+  - rid: 4676745870847246418
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 4676745870847246417
+      type: {class: ChaseTargetMoveStepDescriptor, ns: GamePlay.Scripts.Movement.Steps, asm: Assembly-CSharp}
+      data:
+        moveSpeed: 4
+    - rid: 4676745870847246418
+      type: {class: SeparationMoveStepDescriptor, ns: GamePlay.Scripts.Movement.Steps, asm: Assembly-CSharp}
+      data:
+        separationRadius: 2
+        separationStrength: 20
+        updateIntervalFrames: 10
+        cellSize: 3
