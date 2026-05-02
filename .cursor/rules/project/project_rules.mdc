@@ -45,7 +45,8 @@ alwaysApply: true
 
 ## 完成任何任務前的 Unity 編譯檢查（強制）
   - 若本次變更有影響到 Unity 腳本/組件（例如 `Assets/**/*.cs`、`Packages/**`、asmdef），在回覆「完成」前必須確認 Unity **沒有 Compile Error**。
-  - 優先使用批次模式做編譯檢查（Windows / PowerShell 5.1 用分號 `;` 串命令，不用 `&&`）：
+  - **專案偏好**：以 Unity 真實編譯管線為準；**不要用 `dotnet build Assembly-CSharp.csproj` 取代** Unity 編譯檢查（與 Bee／rsp 可能不一致）。驗證 compile error 時請用下方 `CheckCompile.ps1`。
+  - 使用批次模式做編譯檢查（Windows / PowerShell 5.1 用分號 `;` 串命令，不用 `&&`）：
     - 直接執行工具：`powershell -ExecutionPolicy Bypass -File Tools\Unity\CheckCompile.ps1`
     - 工具行為：以 batchmode 觸發 import/compile，並從 log 偵測 `error CS` / `Compilation failed` / `Script compile errors`；偵測到即視為失敗，必須先修正到 0 compile error 才算完成。
 
