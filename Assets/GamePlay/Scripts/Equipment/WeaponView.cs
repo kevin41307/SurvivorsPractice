@@ -1,4 +1,4 @@
-using GamePlay.Scripts.Equipment;
+using GamePlay.Scripts.Targeting;
 using UnityEngine;
 using VContainer;
 
@@ -8,6 +8,8 @@ namespace GamePlay.Scripts.Equipment
     {
         [Inject]
         public Weapon Weapon { get; set; }
+
+        [SerializeField] private TargetSelectView targetSelectView;
 
         public void Initialize()
         {

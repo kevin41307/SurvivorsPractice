@@ -13,12 +13,11 @@ namespace GamePlay.Scripts.Targeting
     /// </summary>
     public sealed class TargetSelectView : MonoBehaviour
     {
+        [Title("企劃／編輯參考")]
         [Title("選取策略")]
-        [InfoBox("新資產請在此指定策略型別與參數。若為從 enum 遷移的 Prefab，首次載入會依下方隱藏欄位自動建立策略。")]
         [SerializeReference, SerializeField]
         TargetSelectStrategyBase strategy;
 
-        [Title("企劃／編輯參考")]
         [PreviewField(Height = 64)]
         [SerializeField]
         Sprite hintSprite;
