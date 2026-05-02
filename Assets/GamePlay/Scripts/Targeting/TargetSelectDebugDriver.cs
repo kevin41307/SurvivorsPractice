@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GamePlay.Scripts.Application.DI;
+using GamePlay.Scripts.Combat.Ports;
 using SpatialHash2D;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,6 +31,7 @@ namespace GamePlay.Scripts.Targeting
         bool wasShowing;
         SpatialHashWorld spatialHashWorld;
         readonly List<ITargetable> selectionBuffer = new List<ITargetable>();
+
 
         void Awake()
         {
@@ -124,6 +126,10 @@ namespace GamePlay.Scripts.Targeting
             {
                 var t = selectionBuffer[i];
                 Debug.Log($"[TargetSelectDebugDriver] 選中 [{i}] {t.Transform.name}", t.Transform);
+                if (t is ICombatable combatable)
+                {
+                    combatable.TakeDamage(1f);
+                }
             }
         }
     }

@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Targeting.TargetSelectView
   hintSprite: {fileID: -1081998594050715016, guid: f952129913444534b8423cb4e796e240, type: 3}
-  mode: 2
+  mode: 1
   maxRadius: 3.63
   coneLength: 3
   halfAngleDegrees: 120
