@@ -8,11 +8,11 @@ alwaysApply: true
  - **IDE**: JetBrains Rider 2026.1
  - **DI**: VContainer(jp.hadashikick.vcontainer)
  - **非同步**: UniTask(com.cysharp.unitask)
- - **Editor 擴充**: Sirenix Odin Inspector
  - **事件處理**: R3, MessagePipe
  - **Input System**: com.unity.inputsystem
  - **序列化**: Newtonsoft.Json (Unity.Plastic.Newtonsoft.Json)
- - **Tween動畫**: DoTween
+ - **Editor 擴充**: Sirenix Odin Inspector
+ - **Tween動畫**: DoTween Pro
  - **狀態機**: UnityHFSM
  - **Debug Logger**: Unity Debugger, ZLogger
  - **RPG Stats**: com.kryzarel.rpg-stats

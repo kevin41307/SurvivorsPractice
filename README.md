@@ -2,15 +2,24 @@
 
 以 **「生存 + 自動攻擊」** 為核心的 2D 動作遊戲練習專案：玩家以走位與升級選擇為主，在怪物潮中撐過關卡時間；並包含 Run 結算、永久強化（MetaProgress）等系統方向。產品需求與詞彙說明可參考倉庫內 `.cursor/rules/project/vampire_survivors_outline.md`。
 
+專案進行中，尚未完成。
+
 ## 環境需求
+ - **Unity**: 6000.3
 
-| 項目 | 版本 / 說明 |
-|------|-------------|
-| Unity Editor | **6000.3.11f1**（Unity 6） |
-| 渲染 | Universal Render Pipeline（URP 2D） |
-| 輸入 | Unity Input System |
+## 技術棧（主要套件）
+付費套件:
+ - **Editor 擴充**: Sirenix Odin Inspector
+ - **Tween動畫**: DoTween Pro
 
-建議使用與 `ProjectSettings/ProjectVersion.txt` 相同的 Editor 版本，以避免 Library 與套件相容問題。
+免費套件:
+- **DI**：VContainer  
+- **訊息 / 事件**：MessagePipe（含 VContainer 整合）  
+- **非同步**：UniTask  
+- **狀態機**：UnityHFSM  
+- **數值屬性**：rpg-stats（Kryzarel）  
+- **工具庫**：ZString、ZLogger、ZLinq 
+- **NuGet**：NuGetForUnity（若專案有額外 .NET 套件需求）
 
 ## 快速開始
 
@@ -19,15 +28,6 @@
 3. 開啟主要遊玩場景：`Assets/GamePlay/Content/Scenes/Mvp1.unity`（另有 `SampleScene.unity` 可作參考）。
 4. 按下 Play 執行（實際入口依場景內 Bootstrapper / Installer 設定為準）。
 
-## 技術棧（主要套件）
-
-- **DI**：VContainer  
-- **訊息 / 事件**：MessagePipe（含 VContainer 整合）  
-- **非同步**：UniTask  
-- **狀態機**：UnityHFSM  
-- **數值屬性**：rpg-stats（Kryzarel）  
-- **工具庫**：ZString、ZLogger、ZLinq、CsprojModifier  
-- **NuGet**：NuGetForUnity（若專案有額外 .NET 套件需求）
 
 完整清單見 `Packages/manifest.json`。
 
