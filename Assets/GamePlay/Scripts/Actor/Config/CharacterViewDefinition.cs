@@ -8,6 +8,6 @@ public class CharacterViewDefinition : SerializedScriptableObject
 {
     [Required] public GameObject prefab;
     //flyweight?
-    public EnemyDefinition definition;
+    [Required] public EnemyDefinition definition;
 
 }

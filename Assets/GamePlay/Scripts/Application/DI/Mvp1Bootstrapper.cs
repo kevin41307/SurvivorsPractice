@@ -6,6 +6,7 @@ using VContainer.Unity;
 
 using GamePlay.Scripts.Service.Ports;
 using GamePlay.Scripts.Stage;
+using GamePlay.Scripts.Status.Buff;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,7 @@ namespace GamePlay.Scripts.Application.DI
         [Inject] private readonly ExpGemPool expGemPool;
 
         [Inject] private readonly MetaProgressService metaProgressService;
+        [Inject] private MetaProgressRegistry registry;
         [Inject] private readonly Run run;
 
         private readonly Mvp1SelectedViewDefinitions selectedViews;
@@ -43,19 +45,19 @@ namespace GamePlay.Scripts.Application.DI
                 throw new Exception("[Mvp1Bootstrapper] InputActionAsset 未設定。");
             }
 
-            var view = characterFactory.Create(selectedViews.SelectedCharacter);
+            var characterView = characterFactory.Create(selectedViews.SelectedCharacter);
             
             var player = new Player
             {
-                CharacterView = view
+                CharacterView = characterView
             };
             playerLocator.SetPlayer(player);
-            view.transform.position = new Vector3(50, 50, 0);
+            characterView.transform.position = new Vector3(15, 15, 0);
 
             var turret = enemyPool.Get(selectedViews.SelectedTurret);
             turret.transform.position = new Vector3(10, 10, 0);
 
-            for(int i = 0; i < 100; i++)
+            for(int i = 0; i < 50; i++)
             {
                 var enemy = enemyPool.Get(selectedViews.SelectedEnemy);
                 // #TODO: 半徑X內隨機位置
@@ -64,14 +66,16 @@ namespace GamePlay.Scripts.Application.DI
 
             }
 
-            // var stage = new StageRuntime();
+            var weaponView = weaponFactory.Create(selectedViews.SelectedWeapon, characterView.transform);
+            characterView.AddWeapon(weaponView.Weapon);
 
-            // // MVP：先固定讀 slot 1，讓永久強化可在 Run 初始化時套用。
-            // // 後續可改為由選單/UI 決定 slotId。
-            // var meta = metaProgressService.Load(slotId: 1);
-            // run.Start(meta, player, view.Character, stage);
+            var stage = new StageRuntime();
 
-            // weaponFactory.Create(selectedViews.SelectedWeapon);
+            // MVP：先固定讀 slot 999，讓永久強化可在 Run 初始化時套用。
+            // 後續可改為由選單/UI 決定 slotId。
+            var meta = metaProgressService.Load(slotId: 999);
+            run.Start(meta, player, stage);
+
             // treasureChestFactory.Create(selectedViews.SelectedTreasureChest);
 
 

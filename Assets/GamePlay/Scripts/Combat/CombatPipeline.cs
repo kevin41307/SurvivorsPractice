@@ -5,21 +5,19 @@ namespace GamePlay.Scripts.Combat
 {
     public class CombatPipeline
     {
-        private List<ICombatHandler> handlers;
+        private readonly List<ICombatHandler> handlers;
 
         public CombatPipeline(List<ICombatHandler> handlers)
         {
-            this.handlers = handlers;
+            this.handlers = handlers ?? new List<ICombatHandler>();
         }
-        
-        public void Execute(CombatContext context)
+
+        public void Execute(ref CombatContext context)
         {
-            foreach (var handler in handlers)
+            for (var i = 0; i < handlers.Count; i++)
             {
-                handler.Handle(ref context);
+                handlers[i].Handle(ref context);
             }
-        
         }
-        
     }
 }

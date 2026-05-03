@@ -1,4 +1,5 @@
 using System;
+using GamePlay.Scripts.Actor;
 using GamePlay.Scripts.Equipment;
 using GamePlay.Scripts.Equipment.Config;
 using UnityEngine;
@@ -21,30 +22,36 @@ namespace GamePlay.Scripts.Service
             this.resolver = resolver ?? throw new ArgumentNullException(nameof(resolver));
         }
 
-        public WeaponView Create(WeaponViewDefinition definition, Transform parent = null)
+        public WeaponView Create(WeaponViewDefinition viewDefinition, Transform parent = null)
         {
-            if (definition == null)
+            if (viewDefinition == null)
             {
-                throw new ArgumentNullException(nameof(definition));
+                throw new ArgumentNullException(nameof(viewDefinition));
             }
 
-            if (definition.prefab == null)
+            if (viewDefinition.definition == null)
             {
-                throw new Exception($"[WeaponFactory] ViewDefinition '{definition.name}' 的 prefab 未設定。");
+                throw new ArgumentNullException(nameof(viewDefinition.definition));
+            }
+
+            if (viewDefinition.prefab == null)
+            {
+                throw new Exception($"[WeaponFactory] ViewDefinition '{viewDefinition.name}' 的 prefab 未設定。");
             }
 
             GameObject go = parent == null
-                ? resolver.Instantiate(definition.prefab)
-                : resolver.Instantiate(definition.prefab, parent);
+                ? resolver.Instantiate(viewDefinition.prefab)
+                : resolver.Instantiate(viewDefinition.prefab, parent);
 
             if (!go.TryGetComponent(out WeaponView view) || view == null)
             {
-                throw new Exception($"[WeaponFactory] Prefab '{definition.prefab.name}' 未找到 WeaponView 元件。");
+                throw new Exception($"[WeaponFactory] Prefab '{viewDefinition.prefab.name}' 未找到 WeaponView 元件。");
             }
 
-            view.Initialize();
+            view.Initialize(viewDefinition.definition);
+
             return view;
         }
+        
     }
 }
-

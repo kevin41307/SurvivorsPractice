@@ -20,14 +20,14 @@ namespace GamePlay.Scripts.MetaProgress
 
                 var p = MetaProgressData.Create();
                 p.SetGold(123);
-                p.TrySetPowerUpLevel("test_powerup", 2);
+                p.TrySetPowerUpLevel("DebugPowerUp", 2);
 
                 repo.Save(slotId, p);
                 var loaded = repo.LoadOrCreate(slotId);
 
                 var ok =
                     loaded.Gold == 123 &&
-                    loaded.GetPowerUpLevel("test_powerup") == 2;
+                    loaded.GetPowerUpLevel("DebugPowerUp") == 2;
 
                 Debug.Log(ok
                     ? "[MetaProgress] RoundTripCheck OK"

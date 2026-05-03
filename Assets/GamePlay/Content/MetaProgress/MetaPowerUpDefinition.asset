@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e692cc1f3d343c1a8a7e46959362761, type: 3}
   m_Name: MetaPowerUpDefinition
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.MetaProgress.Config.MetaPowerUpDefinition
-  id: StarPower
+  id: DebugPowerUp
   maxLevel: 1
   initialCost: 120
   costPerLevel: 120
-  statType: 0
-  bonusPerLevel: 10
+  statType: 4
+  statModifierType: 1
+  bonusPerLevel: 0.5

@@ -1,7 +1,8 @@
 using System;
 using GamePlay.Scripts.MetaProgress;
+using GamePlay.Scripts.MetaProgress.Config;
 using VContainer;
-
+using System.Linq;
 namespace GamePlay.Scripts.Service
 {
     public sealed class MetaProgressService
@@ -17,9 +18,42 @@ namespace GamePlay.Scripts.Service
         public MetaProgressData Load(int slotId)
         {
             CurrentSlotId = slotId;
-            Current = repository.LoadOrCreate(slotId);
+            var data = repository.LoadOrCreate(slotId);
+            
+            //驗證存檔在遊戲內的定義的合法性
+            if (ClampPowerUpLevelsToDefinitions(data))
+            {
+                repository.Save(slotId, data);
+            }
+
+            Current = data;
             OnValueChanged?.Invoke();
             return Current;
+        }
+
+        /// <summary>
+        /// 將存檔中的 PowerUp 等級限制在對應 <see cref="MetaPowerUpDefinition.maxLevel"/> 內（與 <see cref="TryBuyPowerUp"/> 規則一致）。
+        /// </summary>
+        private bool ClampPowerUpLevelsToDefinitions(MetaProgressData data)
+        {
+            var modified = false;
+            foreach (var id in data.PowerUpLevels.Keys.ToList())
+            {
+                if (!registry.TryGetPowerUp(id, out var def) || def == null)
+                {
+                    continue;
+                }
+
+                var cap = Math.Max(0, def.maxLevel);
+                var level = data.GetPowerUpLevel(id);
+                if (level > cap)
+                {
+                    data.TrySetPowerUpLevel(id, cap);
+                    modified = true;
+                }
+            }
+
+            return modified;
         }
 
         public void Save()

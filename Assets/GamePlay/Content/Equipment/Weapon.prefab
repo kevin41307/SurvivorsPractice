@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5611747738758854500}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2493107881589245918
@@ -46,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb401dd30f972748852bb5ab4e1910a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Equipment.WeaponView
-  targetSelectView: {fileID: 6051344064301735501, guid: cbfb6ea25895f76499ec1c25d7b0322d, type: 3}
+  targetSelectView: {fileID: 2907501224135434087}
 --- !u!212 &3810589468203521428
 SpriteRenderer:
   serializedVersion: 2
@@ -152,3 +153,64 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &3738475804975064176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5611747738758854500}
+  - component: {fileID: 2907501224135434087}
+  m_Layer: 0
+  m_Name: TargetSelectView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5611747738758854500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3738475804975064176}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2980030629075947718}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2907501224135434087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3738475804975064176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d4f0125a3c5e7f0f9c2b3d4e5f6a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Targeting.TargetSelectView
+  strategy:
+    rid: 4116902541739425875
+  hintSprite: {fileID: -1081998594050715016, guid: f952129913444534b8423cb4e796e240, type: 3}
+  gizmoColor: {r: 0.2, g: 0.85, b: 1, a: 0.9}
+  autoCreateHintRenderer: 1
+  circleConeHintMaterial: {fileID: 2100000, guid: 78c9e1d9f4a021c43a7625318056833f, type: 2}
+  rectangleHintMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  hintColor: {r: 0.2, g: 0.85, b: 1, a: 0.45}
+  hintZOffset: 0
+  hintSortingOrder: 50
+  references:
+    version: 2
+    RefIds:
+    - rid: 4116902541739425875
+      type: {class: CircleSelectView, ns: GamePlay.Scripts.Targeting, asm: Assembly-CSharp}
+      data:
+        radius: 5

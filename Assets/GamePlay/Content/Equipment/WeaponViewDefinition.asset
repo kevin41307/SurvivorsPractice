@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: WeaponViewDefinition
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Equipment.Config.WeaponViewDefinition
   prefab: {fileID: 2778636167807046287, guid: 57196c69331be404bbf107f99de805fc, type: 3}
+  definition: {fileID: 11400000, guid: 449374eacc3b0cf4285d876cc61a5ae6, type: 2}

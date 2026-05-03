@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5220b4d81894a65a4740f91f8b13c9b, type: 3}
   m_Name: WeaponDefinition
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Equipment.Config.WeaponDefinition
+  baseDamage: 10
+  baseCooldown: 1

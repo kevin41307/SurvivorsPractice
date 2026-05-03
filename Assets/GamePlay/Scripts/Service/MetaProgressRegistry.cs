@@ -38,6 +38,11 @@ namespace GamePlay.Scripts.Service
             return powerUpsById.TryGetValue(id, out def);
         }
         
+        public bool Exists(string id)
+        {
+            return powerUpsById.ContainsKey(id);
+        }
+        
     }
 }
 

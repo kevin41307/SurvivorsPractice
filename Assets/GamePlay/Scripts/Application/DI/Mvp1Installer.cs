@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using GamePlay.Scripts.Actor;
+using GamePlay.Scripts.Combat;
+using GamePlay.Scripts.Combat.Ports;
 using GamePlay.Scripts.Equipment;
 using GamePlay.Scripts.Item;
 using GamePlay.Scripts.MetaProgress;
@@ -41,6 +43,16 @@ namespace GamePlay.Scripts.Application.DI
 
             builder.Register<Weapon>(Lifetime.Transient);
             builder.Register<WeaponFactory>(Lifetime.Singleton);
+
+            builder.Register<CombatPipeline>(_ =>
+                    new CombatPipeline(new List<ICombatHandler>
+                    {
+                        new InvulnerabilityHandler(),
+                        new ArmorHandler(),
+                        new ResistanceHandler(),
+                        new ApplyHpHandler(),
+                    }),
+                Lifetime.Singleton);
 
             builder.Register<TreasureChest>(Lifetime.Transient);
             builder.Register<TreasureChestFactory>(Lifetime.Singleton);

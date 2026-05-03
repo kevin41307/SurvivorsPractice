@@ -6,6 +6,8 @@ namespace GamePlay.Scripts.Status.Ports
         MaxManaPoint,
         MaxAttackPoint,
         MaxRerollCount,
+        IncreaseDamage,
+        WeaponCooldown,
         
     }
 }

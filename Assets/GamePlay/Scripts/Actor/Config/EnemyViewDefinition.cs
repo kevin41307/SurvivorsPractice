@@ -7,6 +7,6 @@ namespace GamePlay.Scripts.Actor.Config
     public class EnemyViewDefinition : SerializedScriptableObject
     {
         [Required] public GameObject prefab;
-        public EnemyDefinition definition;
+        [Required] public EnemyDefinition definition;
     }
 }

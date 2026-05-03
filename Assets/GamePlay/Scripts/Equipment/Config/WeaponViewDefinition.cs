@@ -7,5 +7,7 @@ namespace GamePlay.Scripts.Equipment.Config
     public class WeaponViewDefinition : ScriptableObject
     {
         [Required] public GameObject prefab;
+
+        [Required] public WeaponDefinition definition;
     }
 }
