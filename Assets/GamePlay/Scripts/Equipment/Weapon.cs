@@ -1,9 +1,7 @@
 using GamePlay.Scripts.Actor;
 using GamePlay.Scripts.Equipment.Config;
 using GamePlay.Scripts.Status.Ports;
-using Kryz.RPG.Stats.Core;
 using Kryz.RPG.Stats.Default;
-using UnityEngine;
 
 namespace GamePlay.Scripts.Equipment
 {
@@ -29,8 +27,8 @@ namespace GamePlay.Scripts.Equipment
                 return;
             }
 
-            damageStat = new Stat(definition.baseDamage);
-            cooldownStat = new Stat(definition.baseCooldown);
+            damageStat = new Stat(definition.GetDamageStat(Level));
+            cooldownStat = new Stat(definition.GetCooldownStat(Level));
             CooldownRemain = cooldownStat.FinalValue;
         }
 
@@ -63,8 +61,8 @@ namespace GamePlay.Scripts.Equipment
             damageStat.RemoveModifiersFromSource(build.SourceKey);
             cooldownStat.RemoveModifiersFromSource(build.SourceKey);
 
-            ApplyBuildModifiersToStat(build, StatType.IncreaseDamage, damageStat);
-            ApplyBuildModifiersToStat(build, StatType.WeaponCooldown, cooldownStat);
+            ApplyBuildModifiersToStat(build, StatType.Might, damageStat);
+            ApplyBuildModifiersToStat(build, StatType.Cooldown, cooldownStat);
         }
 
         static void ApplyBuildModifiersToStat(Build build, StatType statType, Stat stat)
@@ -79,5 +77,7 @@ namespace GamePlay.Scripts.Equipment
                 stat.AddModifier(mod);
             }
         }
+
+
     }
 }
