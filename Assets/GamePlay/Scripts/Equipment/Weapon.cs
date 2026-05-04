@@ -7,7 +7,7 @@ namespace GamePlay.Scripts.Equipment
 {
     /// <summary>
     /// 武器 Domain：傷害／冷卻以 Kryz <see cref="Stat"/> 為權威；<see cref="CooldownRemain"/> 倒數至零後由表現層開火並重置為 <see cref="Stat.FinalValue"/>。
-    /// <see cref="UpdateModifiers"/> 自 <see cref="Build"/> 合併 <see cref="StatType.IncreaseDamage"/>／<see cref="StatType.WeaponCooldown"/> 的修飾器；傷害結算管線在 <see cref="WeaponView"/>。
+    /// <see cref="UpdateModifiers"/> 自 <see cref="Build"/> 合併 <see cref="StatType.Might"/>／<see cref="StatType.Cooldown"/> 的修飾器；傷害結算管線在 <see cref="WeaponView"/>。
     /// </summary>
     public class Weapon
     {
@@ -19,6 +19,10 @@ namespace GamePlay.Scripts.Equipment
 
         private Stat damageStat = new();
         private Stat cooldownStat = new();
+        private WeaponDefinition definition;
+
+        public WeaponDefinition Definition => definition;
+        public bool IsMaxLevel => definition != null && Level >= definition.maxLevel;
 
         public void Configure(WeaponDefinition definition)
         {
@@ -27,9 +31,49 @@ namespace GamePlay.Scripts.Equipment
                 return;
             }
 
+            this.definition = definition;
+            Level = 1;
+            ApplyStatsFromDefinition();
+            ResetCooldown();
+        }
+
+        public bool LevelUp(Build build = null)
+        {
+            if (definition == null)
+            {
+                return false;
+            }
+
+            if (IsMaxLevel)
+            {
+                return false;
+            }
+
+            Level++;
+            ApplyStatsFromDefinition();
+            if (build != null)
+            {
+                UpdateModifiers(build);
+            }
+
+            ResetCooldown();
+            return true;
+        }
+
+        public void ResetCooldown()
+        {
+            CooldownRemain = cooldownStat.FinalValue;
+        }
+
+        void ApplyStatsFromDefinition()
+        {
+            if (definition == null)
+            {
+                return;
+            }
+
             damageStat = new Stat(definition.GetDamageStat(Level));
             cooldownStat = new Stat(definition.GetCooldownStat(Level));
-            CooldownRemain = cooldownStat.FinalValue;
         }
 
         public void Tick(float deltaTime)
