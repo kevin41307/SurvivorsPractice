@@ -3,6 +3,7 @@ using System.Linq;
 using GamePlay.Scripts.Actor;
 using GamePlay.Scripts.Combat;
 using GamePlay.Scripts.Combat.Ports;
+using GamePlay.Scripts.Core;
 using GamePlay.Scripts.Equipment;
 using GamePlay.Scripts.Equipment.Config;
 using GamePlay.Scripts.Item;
@@ -27,9 +28,9 @@ namespace GamePlay.Scripts.Application.DI
 
         [Required, SerializeField] private Mvp1SelectedViewDefinitionRefs selectedViewDefinitions;
 
-        [SerializeField] private List<MetaPowerUpDefinition> metaPowerUps = new();
-        [SerializeField] private List<WeaponViewDefinition> weaponViewDefinitions = new();
-        [SerializeField] private List<PassiveItemDefinition> passiveItemDefinitions = new();
+        [NonEmptyList, SerializeField] private List<MetaPowerUpDefinition> metaPowerUps = new();
+        [NonEmptyList, SerializeField] private List<WeaponViewDefinition> weaponViewDefinitions = new();
+        [NonEmptyList, SerializeField] private List<PassiveItemDefinition> passiveItemDefinitions = new();
 
         protected override void Configure(IContainerBuilder builder)
         {
