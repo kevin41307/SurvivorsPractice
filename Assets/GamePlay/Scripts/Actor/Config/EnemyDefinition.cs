@@ -12,6 +12,8 @@ namespace GamePlay.Scripts.Actor.Config
     [CreateAssetMenu(fileName = "EnemyDefinition", menuName = "Scriptable Objects/EnemyDefinition")]
     public class EnemyDefinition : SerializedScriptableObject
     {
+        
+        
         [Required, SerializeReference]
         IDropPolicy dropPolicy;
 
@@ -38,6 +40,11 @@ namespace GamePlay.Scripts.Actor.Config
             }
 
             return built.Count == 1 ? built[0] : new MoveStepPipeline(built);
+        }
+
+        public float GetHealthPointStat(int level)
+        {
+            return 1;
         }
     }
 }

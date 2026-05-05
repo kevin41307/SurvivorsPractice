@@ -26,6 +26,10 @@ namespace GamePlay.Scripts.Status
             return stat;
         } 
         
+        public void SetOrAdd(StatType statType, float initialValue)
+        {
+            stats[statType] = new Stat(initialValue);
+        }
         
     }
 }

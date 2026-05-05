@@ -10,8 +10,8 @@ namespace GamePlay.Scripts.Actor
         public StatusContainer StatusContainer { get; } = new();
         
         public int GoldCoin { get; private set; } = 0;
-
         public int Level { get; private set; } = 1;
+        public int Experience { get; private set; } = 0;
 
         public void AddCoin(int amount)
         {
@@ -21,6 +21,11 @@ namespace GamePlay.Scripts.Actor
         public void SubtractCoin(int amount)
         {
             GoldCoin = Math.Max(0, GoldCoin - amount);
+        }
+
+        public void AddExperience(int amount)
+        {
+            Experience = Math.Max(0, Experience + amount);
         }
 
         
