@@ -10,8 +10,8 @@ namespace GamePlay.Scripts.Equipment.Config
     {
         [MinValue(1)] public int maxLevel = 10;
 
-        [MinValue(1)] public int rarity = 1;
-
+        [MinValue(1)] public int rarity = 100;
+        
         [MinValue(0)] public float damage;
         [MinValue(0)] public float damageBonusPerLevel;
         [MinValue(0)] public float area;
