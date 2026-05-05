@@ -12,5 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5220b4d81894a65a4740f91f8b13c9b, type: 3}
   m_Name: WeaponDefinition
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Equipment.Config.WeaponDefinition
-  baseDamage: 10
-  baseCooldown: 1
+  maxLevel: 10
+  rarity: 1
+  damage: 10
+  damageBonusPerLevel: 1
+  area: 0
+  areaBonusPerLevel: 0
+  speed: 0
+  speedBonusPerLevel: 0
+  amount: 0
+  amountBonusPerLevel: 0
+  duration: 0
+  durationBonusPerLevel: 0
+  pierce: 0
+  pierceBonusPerLevel: 0
+  cooldown: 1
+  cooldownBonusPerLevel: -0.05
+  hitboxDelay: 0
+  knockback: 0
+  poolLimit: 0

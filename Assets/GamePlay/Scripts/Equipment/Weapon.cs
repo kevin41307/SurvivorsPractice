@@ -51,11 +51,6 @@ namespace GamePlay.Scripts.Equipment
 
             Level++;
             ApplyStatsFromDefinition();
-            if (build != null)
-            {
-                UpdateModifiers(build);
-            }
-
             ResetCooldown();
             return true;
         }
