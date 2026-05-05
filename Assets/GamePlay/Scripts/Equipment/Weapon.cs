@@ -2,6 +2,7 @@ using GamePlay.Scripts.Actor;
 using GamePlay.Scripts.Equipment.Config;
 using GamePlay.Scripts.Status.Ports;
 using Kryz.RPG.Stats.Default;
+using UnityEngine;
 
 namespace GamePlay.Scripts.Equipment
 {
@@ -23,37 +24,33 @@ namespace GamePlay.Scripts.Equipment
         private WeaponDefinition definition;
 
         public WeaponDefinition Definition => definition;
-        public bool IsMaxLevel => definition != null && Level >= definition.maxLevel;
 
         public void Configure(WeaponDefinition definition)
         {
             if (definition == null)
             {
+                Debug.LogError("WeaponDefinition is null");
                 return;
             }
 
             this.definition = definition;
             Level = 1;
-            ApplyStatsFromDefinition();
+            GetStatsByLevelFromDefinition();
             ResetCooldown();
+            KnockbackMultiplier = definition.GetKnockbackStat();
         }
 
-        public bool LevelUp(Build build = null)
+        public void Upgrade()
         {
-            if (definition == null)
+            if (Level >= Definition.maxLevel)
             {
-                return false;
-            }
-
-            if (IsMaxLevel)
-            {
-                return false;
+                Debug.LogError($"{Definition.name} 已達最大等級 {Definition.maxLevel}");
+                return;
             }
 
             Level++;
-            ApplyStatsFromDefinition();
+            GetStatsByLevelFromDefinition();
             ResetCooldown();
-            return true;
         }
 
         public void ResetCooldown()
@@ -61,16 +58,10 @@ namespace GamePlay.Scripts.Equipment
             CooldownRemain = cooldownStat.FinalValue;
         }
 
-        void ApplyStatsFromDefinition()
+        void GetStatsByLevelFromDefinition()
         {
-            if (definition == null)
-            {
-                return;
-            }
-
-            damageStat = new Stat(definition.GetDamageStat(Level));
-            cooldownStat = new Stat(definition.GetCooldownStat(Level));
-            KnockbackMultiplier = definition.GetKnockbackStat();
+            damageStat.BaseValue = definition.GetDamageStat(Level);
+            cooldownStat.BaseValue = definition.GetCooldownStat(Level);
         }
 
         public void Tick(float deltaTime)
@@ -94,11 +85,6 @@ namespace GamePlay.Scripts.Equipment
 
         public void UpdateModifiers(Build build)
         {
-            if (build == null)
-            {
-                return;
-            }
-
             damageStat.RemoveModifiersFromSource(build.SourceKey);
             cooldownStat.RemoveModifiersFromSource(build.SourceKey);
 

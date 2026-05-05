@@ -23,8 +23,7 @@ namespace GamePlay.Scripts.Actor
         
         private readonly Dictionary<StatType, List<StatModifier<StatModifierData>>> statModifierCache = new();
         public IReadOnlyDictionary<StatType, List<StatModifier<StatModifierData>>> StatModifiers => statModifierCache;
-        
-        
+
 
         public void AddPassiveItem(PassiveItem item)
         {
@@ -33,7 +32,8 @@ namespace GamePlay.Scripts.Actor
                 Debug.LogError("PassiveItem is null");
                 return;
             }
-
+            
+            // 如果列表中已經有相同的PassiveItem, 則upgrade
             var existing = PassiveItems.FirstOrDefault(x => x.Definition == item.Definition);
             if (existing != null)
             {
@@ -74,6 +74,14 @@ namespace GamePlay.Scripts.Actor
             if (item == null)
             {
                 Debug.LogError("Weapon is null");
+                return;
+            }
+            
+            // 如果列表中已經有相同的Weapon, 則upgrade
+            var existing = Weapons.FirstOrDefault(x => x.Definition == item.Definition);
+            if (existing != null)
+            {
+                existing.Upgrade();
                 return;
             }
 
