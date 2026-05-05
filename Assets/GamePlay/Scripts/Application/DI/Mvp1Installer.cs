@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
 using GamePlay.Scripts.Actor;
 using GamePlay.Scripts.Combat;
 using GamePlay.Scripts.Combat.Ports;
 using GamePlay.Scripts.Equipment;
+using GamePlay.Scripts.Equipment.Config;
 using GamePlay.Scripts.Item;
+using GamePlay.Scripts.Item.Config;
+using GamePlay.Scripts.LevelUp;
 using GamePlay.Scripts.MetaProgress;
 using GamePlay.Scripts.MetaProgress.Config;
 using SpatialHash2D;
@@ -24,9 +28,22 @@ namespace GamePlay.Scripts.Application.DI
         [Required, SerializeField] private Mvp1SelectedViewDefinitionRefs selectedViewDefinitions;
 
         [SerializeField] private List<MetaPowerUpDefinition> metaPowerUps = new();
+        [SerializeField] private List<WeaponViewDefinition> weaponViewDefinitions = new();
+        [SerializeField] private List<PassiveItemDefinition> passiveItemDefinitions = new();
 
         protected override void Configure(IContainerBuilder builder)
         {
+            // 讓專案在 Inspector 尚未完整設定時也能啟動；至少放入目前選到的武器 ViewDefinition
+            // 避免 WeaponRegistry 為空導致 LevelUp 無法產生選項。
+            if (weaponViewDefinitions == null || weaponViewDefinitions.Count == 0)
+            {
+                var selected = selectedViewDefinitions?.ToDefinitions()?.SelectedWeapon;
+                if (selected != null)
+                {
+                    weaponViewDefinitions = new List<WeaponViewDefinition> { selected };
+                }
+            }
+
             //Unity Stuff
             builder.RegisterInstance(inputAction);
             
@@ -43,6 +60,8 @@ namespace GamePlay.Scripts.Application.DI
 
             builder.Register<Weapon>(Lifetime.Transient);
             builder.Register<WeaponFactory>(Lifetime.Singleton);
+            
+            builder.Register<PassiveItemFactory>(Lifetime.Singleton);
 
             builder.Register<CombatPipeline>(_ =>
                     new CombatPipeline(new List<ICombatHandler>
@@ -63,6 +82,14 @@ namespace GamePlay.Scripts.Application.DI
 
             builder.Register<MetaProgressRegistry>(Lifetime.Singleton)
                 .WithParameter<IEnumerable<MetaPowerUpDefinition>>(metaPowerUps);
+
+            builder.Register<WeaponRegistry>(Lifetime.Singleton)
+                .WithParameter<IEnumerable<WeaponViewDefinition>>(weaponViewDefinitions);
+
+            builder.Register<PassiveItemRegistry>(Lifetime.Singleton)
+                .WithParameter<IEnumerable<PassiveItemDefinition>>(passiveItemDefinitions);
+
+            builder.Register<LevelUpService>(Lifetime.Singleton);
             
             // MetaProgress
             builder.Register<MetaProgressService>(Lifetime.Singleton);

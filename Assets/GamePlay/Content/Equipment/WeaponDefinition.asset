@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5220b4d81894a65a4740f91f8b13c9b, type: 3}
   m_Name: WeaponDefinition
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Equipment.Config.WeaponDefinition
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   maxLevel: 10
   rarity: 1
   damage: 10
@@ -30,5 +39,4 @@ MonoBehaviour:
   cooldownBonusPerLevel: -0.05
   hitboxDelay: 0
   knockback: 1
-  knockbackBonusPerLevel: 0
   poolLimit: 0

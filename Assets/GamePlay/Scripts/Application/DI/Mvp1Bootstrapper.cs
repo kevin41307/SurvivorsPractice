@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using GamePlay.Scripts.Actor;
+using GamePlay.Scripts.LevelUp;
 using GamePlay.Scripts.Service;
 using VContainer;
 using VContainer.Unity;
@@ -30,6 +32,7 @@ namespace GamePlay.Scripts.Application.DI
         [Inject] private readonly MetaProgressService metaProgressService;
         [Inject] private MetaProgressRegistry registry;
         [Inject] private readonly Run run;
+        [Inject] private readonly LevelUpService levelUpService;
 
         private readonly Mvp1SelectedViewDefinitions selectedViews;
 
@@ -76,11 +79,36 @@ namespace GamePlay.Scripts.Application.DI
             var meta = metaProgressService.Load(slotId: 999);
             run.Start(meta, player, stage);
 
+            // 簡單測試LevelUpService
+            try
+            {
+                var character = characterView.Character;
+                var beforeGold = character.GoldCoin;
+                var beforeWeapons = character.Build.Weapons.Count;
+                var beforePassives = character.Build.PassiveItems.Count;
+
+                var options = levelUpService.RollOptions(character, optionCount: 3);
+                Debug.Log($"[LevelUpServiceTest] Rolled {options.Count} options: {string.Join(", ", options.Select(o => o.GetType().Name))}");
+
+                if (options.Count > 0)
+                {
+                    options[0].Execute();
+                }
+
+                Debug.Log(
+                    $"[LevelUpServiceTest] After Execute: Gold {beforeGold}->{character.GoldCoin}, " +
+                    $"Weapons {beforeWeapons}->{character.Build.Weapons.Count}, " +
+                    $"Passives {beforePassives}->{character.Build.PassiveItems.Count}");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[LevelUpServiceTest] Failed: {ex}");
+            }
+
             // treasureChestFactory.Create(selectedViews.SelectedTreasureChest);
-
-
-
             // expGemPool.Get(selectedViews.SelectedExperienceGem);
+
+
 
 
 

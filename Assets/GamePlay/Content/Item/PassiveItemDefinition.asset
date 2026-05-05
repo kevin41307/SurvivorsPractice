@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec15b53a05c649deb08e932ea9da7af2, type: 3}
-  m_Name: WeaponViewDefinition
-  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Equipment.Config.WeaponViewDefinition
+  m_Script: {fileID: 11500000, guid: b5c75e03ba144e1e9888941aa43d0361, type: 3}
+  m_Name: PassiveItemDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.Scripts.Item.Config.PassiveItemDefinition
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -21,5 +21,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  prefab: {fileID: 2778636167807046287, guid: 57196c69331be404bbf107f99de805fc, type: 3}
-  definition: {fileID: 11400000, guid: 449374eacc3b0cf4285d876cc61a5ae6, type: 2}
+  maxLevel: 5
+  rarity: 100
+  statType: 0
+  statModifierType: 0
+  bonusPerLevel: 50

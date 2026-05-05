@@ -1,17 +1,24 @@
+using System;
 using GamePlay.Scripts.Combat.Ports;
 using GamePlay.Scripts.Equipment;
 using GamePlay.Scripts.Item;
 using GamePlay.Scripts.Status.Buff;
 using GamePlay.Scripts.Targeting;
+using R3;
 using UnityEngine;
 using VContainer;
 
 namespace GamePlay.Scripts.Actor
 {
-    public class CharacterView : MonoBehaviour, ITargetable, ICombatable
+    public class CharacterView : MonoBehaviour, ITargetable, ICombatable, IInvulnerable
     {
         [Inject]
         public Character Character { get; private set; }
+
+        private bool isInvulnerable;
+        public bool IsInvulnerable => isInvulnerable;
+
+        private IDisposable invulnerabilityTimerDisposable;
 
         public void Initialize()
         {
@@ -46,5 +53,27 @@ namespace GamePlay.Scripts.Actor
         {
             Character.Build.AddWeapon(item);
         }
+
+        public void StartInvulnerability(float time)
+        {
+            invulnerabilityTimerDisposable?.Dispose();
+            invulnerabilityTimerDisposable = null;
+
+            if (time <= 0f)
+            {
+                isInvulnerable = false;
+                return;
+            }
+
+            isInvulnerable = true;
+
+            invulnerabilityTimerDisposable =
+                Observable.Timer(TimeSpan.FromSeconds(time), destroyCancellationToken)
+                    .Subscribe(this, (x, state) =>
+                    {
+                        state.isInvulnerable = false;
+                    });
+        }
+
     }
 }

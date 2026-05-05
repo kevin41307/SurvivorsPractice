@@ -159,6 +159,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: edd2a2ef427193c4592f2c25a373f71f, type: 2}
     - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
+      propertyPath: weaponDefinitions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
+      propertyPath: 'weaponDefinitions.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 449374eacc3b0cf4285d876cc61a5ae6, type: 2}
+    - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
+      propertyPath: passiveItemDefinitions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
+      propertyPath: 'passiveItemDefinitions.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bc7027b092c53604fa357ecd0e2dbf1c, type: 2}
+    - target: {fileID: 1628507736163604020, guid: c330138a70b3ee343a2408949460e2a7, type: 3}
       propertyPath: selectedViewDefinitions.selectedEnemy
       value: 
       objectReference: {fileID: 11400000, guid: db8f382565e231d44ab70c26991a6d34, type: 2}

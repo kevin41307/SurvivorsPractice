@@ -1,15 +1,14 @@
-using Kryz.RPG.Stats.Core;
-using Kryz.RPG.Stats.Default;
+using GamePlay.Scripts.Core;
+using GamePlay.Scripts.Loot;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GamePlay.Scripts.Equipment.Config
 {
     [CreateAssetMenu(fileName = "WeaponDefinition", menuName = "Scriptable Objects/WeaponDefinition")]
-    public class WeaponDefinition : ScriptableObject
+    public class WeaponDefinition : SerializedScriptableObject, IWeightEntry
     {
         [MinValue(1)] public int maxLevel = 10;
-
         [MinValue(1)] public int rarity = 100;
         
         [MinValue(0)] public float damage;
@@ -39,9 +38,8 @@ namespace GamePlay.Scripts.Equipment.Config
             level = Mathf.Clamp(level - 1, 0, maxLevel);
             return baseValue + a * level ;
         }
+
+        public int Weight => rarity;
     }
     
-    
-
-
 }
