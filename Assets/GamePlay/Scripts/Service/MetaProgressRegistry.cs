@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GamePlay.Scripts.MetaProgress.Config;
 
 namespace GamePlay.Scripts.Service
@@ -13,11 +14,15 @@ namespace GamePlay.Scripts.Service
             powerUpsById = new Dictionary<string, MetaPowerUpDefinition>(StringComparer.Ordinal);
 
             if (powerUpDefinitions == null)
-            {
-                return;
-            }
+                throw new ArgumentNullException(nameof(powerUpDefinitions));
 
-            foreach (var def in powerUpDefinitions)
+            var defs = powerUpDefinitions as IReadOnlyCollection<MetaPowerUpDefinition>
+                ?? powerUpDefinitions.ToArray();
+
+            if (defs.Count == 0)
+                throw new ArgumentException("powerUpDefinitions is empty", nameof(powerUpDefinitions));
+
+            foreach (var def in defs)
             {
                 if (def == null || string.IsNullOrWhiteSpace(def.id))
                 {

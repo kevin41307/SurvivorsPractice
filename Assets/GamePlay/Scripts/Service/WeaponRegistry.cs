@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GamePlay.Scripts.Equipment.Config;
 
 namespace GamePlay.Scripts.Service
@@ -14,9 +15,15 @@ namespace GamePlay.Scripts.Service
             weaponsById = new Dictionary<string, WeaponViewDefinition>(StringComparer.Ordinal);
 
             if (weaponViewDefinitions == null)
-                throw new NullReferenceException("weaponViewDefinitions is null");
+                throw new ArgumentNullException(nameof(weaponViewDefinitions));
 
-            foreach (var def in weaponViewDefinitions)
+            var defs = weaponViewDefinitions as IReadOnlyCollection<WeaponViewDefinition>
+                ?? weaponViewDefinitions.ToArray();
+
+            if (defs.Count == 0)
+                throw new ArgumentException("weaponViewDefinitions is empty", nameof(weaponViewDefinitions));
+
+            foreach (var def in defs)
             {
                 if (def == null || string.IsNullOrWhiteSpace(def.Guid))
                 {

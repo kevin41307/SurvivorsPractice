@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GamePlay.Scripts.Item.Config;
-using UnityEngine;
 
 namespace GamePlay.Scripts.Service
 {
@@ -12,12 +12,18 @@ namespace GamePlay.Scripts.Service
 
         public PassiveItemRegistry(IEnumerable<PassiveItemDefinition> passiveItemDefinitions)
         {
-            if (passiveItemDefinitions == null)
-                throw new NullReferenceException("passiveItemDefinitions is null");
-            
             passiveItemsById = new Dictionary<string, PassiveItemDefinition>(StringComparer.Ordinal);
 
-            foreach (var def in passiveItemDefinitions)
+            if (passiveItemDefinitions == null)
+                throw new ArgumentNullException(nameof(passiveItemDefinitions));
+
+            var defs = passiveItemDefinitions as IReadOnlyCollection<PassiveItemDefinition>
+                ?? passiveItemDefinitions.ToArray();
+
+            if (defs.Count == 0)
+                throw new ArgumentException("passiveItemDefinitions is empty", nameof(passiveItemDefinitions));
+
+            foreach (var def in defs)
             {
                 if (def == null || string.IsNullOrWhiteSpace(def.Guid))
                 {

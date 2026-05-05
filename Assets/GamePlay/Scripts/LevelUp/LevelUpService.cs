@@ -44,17 +44,6 @@ namespace GamePlay.Scripts.LevelUp
             this.passiveItemFactory = passiveItemFactory ?? throw new ArgumentNullException(nameof(passiveItemFactory));
             this.randomProvider = randomProvider ?? throw new ArgumentNullException(nameof(randomProvider));
             
-            // 檢查registry的definitions
-            if (this.weaponRegistry.All.Count == 0)
-            {
-                throw new NullReferenceException("weaponRegistry is empty");
-            }
-
-            if (this.passiveItemRegistry.All.Count == 0)
-            {
-                throw new NullReferenceException("passiveItemRegistry is empty");
-            }
-
         }
 
         public IReadOnlyList<ILevelUpCommand> RollOptions(Character character, int optionCount)

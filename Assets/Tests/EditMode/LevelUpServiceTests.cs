@@ -54,20 +54,54 @@ namespace Tests.EditMode
         }
 
         [Test]
-        public void Ctor_ShouldThrow_WhenRegistriesAreEmpty()
+        public void Ctor_ShouldThrow_WhenAnyDependencyIsNull()
         {
-            var weaponRegistry = new WeaponRegistry(Array.Empty<GamePlay.Scripts.Equipment.Config.WeaponViewDefinition>());
-            var passiveRegistry = new PassiveItemRegistry(Array.Empty<GamePlay.Scripts.Item.Config.PassiveItemDefinition>());
+            var invalidWeaponViewDef = ScriptableObject.CreateInstance<GamePlay.Scripts.Equipment.Config.WeaponViewDefinition>();
+            ForceSetGuid(invalidWeaponViewDef, "weapon-1");
 
-            Assert.Throws<NullReferenceException>(() =>
-            {
-                _ = new LevelUpService(
-                    weaponRegistry,
-                    passiveRegistry,
-                    new WeaponFactory(new DummyResolver()),
-                    new PassiveItemFactory(),
-                    new RandomProvider(runSeed: 123));
-            });
+            var invalidPassiveDef = ScriptableObject.CreateInstance<GamePlay.Scripts.Item.Config.PassiveItemDefinition>();
+            ForceSetGuid(invalidPassiveDef, "passive-1");
+
+            var weaponRegistry = new WeaponRegistry(new[] { invalidWeaponViewDef });
+            var passiveRegistry = new PassiveItemRegistry(new[] { invalidPassiveDef });
+            var weaponFactory = new WeaponFactory(new DummyResolver());
+            var passiveItemFactory = new PassiveItemFactory();
+            var randomProvider = new RandomProvider(runSeed: 123);
+
+            Assert.Throws<ArgumentNullException>(() => _ = new LevelUpService(
+                weaponRegistry: null,
+                passiveItemRegistry: passiveRegistry,
+                weaponFactory: weaponFactory,
+                passiveItemFactory: passiveItemFactory,
+                randomProvider: randomProvider));
+
+            Assert.Throws<ArgumentNullException>(() => _ = new LevelUpService(
+                weaponRegistry: weaponRegistry,
+                passiveItemRegistry: null,
+                weaponFactory: weaponFactory,
+                passiveItemFactory: passiveItemFactory,
+                randomProvider: randomProvider));
+
+            Assert.Throws<ArgumentNullException>(() => _ = new LevelUpService(
+                weaponRegistry: weaponRegistry,
+                passiveItemRegistry: passiveRegistry,
+                weaponFactory: null,
+                passiveItemFactory: passiveItemFactory,
+                randomProvider: randomProvider));
+
+            Assert.Throws<ArgumentNullException>(() => _ = new LevelUpService(
+                weaponRegistry: weaponRegistry,
+                passiveItemRegistry: passiveRegistry,
+                weaponFactory: weaponFactory,
+                passiveItemFactory: null,
+                randomProvider: randomProvider));
+
+            Assert.Throws<ArgumentNullException>(() => _ = new LevelUpService(
+                weaponRegistry: weaponRegistry,
+                passiveItemRegistry: passiveRegistry,
+                weaponFactory: weaponFactory,
+                passiveItemFactory: passiveItemFactory,
+                randomProvider: null));
         }
 
         [Test]
