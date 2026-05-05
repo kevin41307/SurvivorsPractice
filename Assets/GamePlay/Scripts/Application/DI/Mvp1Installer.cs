@@ -50,6 +50,7 @@ namespace GamePlay.Scripts.Application.DI
                         new InvulnerabilityHandler(),
                         new ArmorHandler(),
                         new ResistanceHandler(),
+                        new KnockbackHandler(),
                         new ApplyHpHandler(),
                     }),
                 Lifetime.Singleton);

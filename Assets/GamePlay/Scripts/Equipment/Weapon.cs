@@ -7,7 +7,7 @@ namespace GamePlay.Scripts.Equipment
 {
     /// <summary>
     /// 武器 Domain：傷害／冷卻以 Kryz <see cref="Stat"/> 為權威；<see cref="CooldownRemain"/> 倒數至零後由表現層開火並重置為 <see cref="Stat.FinalValue"/>。
-    /// <see cref="UpdateModifiers"/> 自 <see cref="Build"/> 合併 <see cref="StatType.Might"/>／<see cref="StatType.Cooldown"/> 的修飾器；傷害結算管線在 <see cref="WeaponView"/>。
+    /// <see cref="UpdateModifiers"/> 自 <see cref="Build"/> 合併 <see cref="StatType.Might"/>／<see cref="StatType.Cooldown"/> 的修飾器；<see cref="KnockbackMultiplier"/> 為表底 float，不吃修飾器；傷害結算管線在 <see cref="WeaponView"/>。
     /// </summary>
     public class Weapon
     {
@@ -16,6 +16,7 @@ namespace GamePlay.Scripts.Equipment
         public float CooldownRemain { get; private set; }
         public Stat DamageStat => damageStat;
         public Stat CooldownStat => cooldownStat;
+        public float KnockbackMultiplier { get; private set; }
 
         private Stat damageStat = new();
         private Stat cooldownStat = new();
@@ -69,6 +70,7 @@ namespace GamePlay.Scripts.Equipment
 
             damageStat = new Stat(definition.GetDamageStat(Level));
             cooldownStat = new Stat(definition.GetCooldownStat(Level));
+            KnockbackMultiplier = definition.GetKnockbackStat();
         }
 
         public void Tick(float deltaTime)

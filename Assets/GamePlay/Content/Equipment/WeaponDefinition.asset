@@ -29,5 +29,6 @@ MonoBehaviour:
   cooldown: 1
   cooldownBonusPerLevel: -0.05
   hitboxDelay: 0
-  knockback: 0
+  knockback: 1
+  knockbackBonusPerLevel: 0
   poolLimit: 0

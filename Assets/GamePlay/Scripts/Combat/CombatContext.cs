@@ -15,5 +15,9 @@ namespace GamePlay.Scripts.Combat
         public bool Cancelled;
         public float FlatArmorReduction;
         public float ResistanceFraction;
+        /// <summary>武器端擊退強度／倍率（結算時可乘以目標承受倍率）。</summary>
+        public float KnockbackDealt;
+        /// <summary>由施放者指向受擊者的單位方向（平面）；零向量表示未設定。</summary>
+        public Vector2 KnockbackDirection;
     }
 }

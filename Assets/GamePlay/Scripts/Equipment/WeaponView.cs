@@ -45,11 +45,6 @@ namespace GamePlay.Scripts.Equipment
 
         void Update()
         {
-            if (Weapon == null)
-            {
-                return;
-            }
-
             Weapon.Tick(Time.deltaTime);
 
             if (Weapon.TryConsumeCooldown())
@@ -60,18 +55,18 @@ namespace GamePlay.Scripts.Equipment
 
         void Fire()
         {
-            if ( spatialHashWorld == null || combatPipeline == null)
-            {
-                return;
-            }
-
             Vector2 origin = TargetSelectSpatialUtility.ToPlane(transform.position);
             Vector2 forward = transform.right.ToVector2();
 
             selectionBuffer.Clear();
-            targetSelectView?.SelectAllInShape(spatialHashWorld, origin, forward, selectionBuffer);
+            if (targetSelectView == null)
+            {
+                return;
+            }
+            targetSelectView.SelectAllInShape(spatialHashWorld, origin, forward, selectionBuffer);
 
             float hitDamage = Weapon.DamageStat.FinalValue;
+            float knockbackValue = Weapon.KnockbackMultiplier;
 
             for (int i = 0; i < selectionBuffer.Count; i++)
             {
@@ -79,6 +74,8 @@ namespace GamePlay.Scripts.Equipment
                 {
                     continue;
                 }
+
+                Vector2 knockDir = ResolveKnockbackDirection(combatable);
 
                 var ctx = new CombatContext
                 {
@@ -89,9 +86,22 @@ namespace GamePlay.Scripts.Equipment
                     Cancelled = false,
                     FlatArmorReduction = 0f,
                     ResistanceFraction = 0f,
+                    KnockbackDealt = knockbackValue,
+                    KnockbackDirection = knockDir,
                 };
                 combatPipeline.Execute(ref ctx);
             }
+        }
+
+        Vector2 ResolveKnockbackDirection(ICombatable combatable)
+        {
+            var delta = (combatable.Position - targetSelectView.transform.position).ToVector2();
+            if (delta.sqrMagnitude > 1e-6f)
+            {
+                return delta.normalized;
+            }
+
+            return transform.right.ToVector2().normalized;
         }
 
 

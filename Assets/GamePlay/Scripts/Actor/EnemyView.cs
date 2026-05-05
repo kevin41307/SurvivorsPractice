@@ -18,9 +18,11 @@ namespace GamePlay.Scripts.Actor
 
         SpriteRenderer _spriteRenderer;
         Color _originalColor;
+        EnemyMovementController movementController;
 
         void Awake()
         {
+            movementController = GetComponent<EnemyMovementController>();
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             if (_spriteRenderer != null)
                 _originalColor = _spriteRenderer.color;
@@ -32,8 +34,8 @@ namespace GamePlay.Scripts.Actor
             ViewDefinition = viewDefinition;
         }
 
-
         Transform ITargetable.Transform => transform;
+        Vector3 ICombatable.Position => transform.position;
         
         public void TakeDamage(float amount)
         {
@@ -44,6 +46,11 @@ namespace GamePlay.Scripts.Actor
             _spriteRenderer.DOKill();
             _spriteRenderer.color = Color.red;
             _spriteRenderer.DOColor(_originalColor, 0.3f);
+        }
+
+        public void ApplyKnockback(Vector2 directionUnit, float dealtProduct)
+        {
+            movementController?.ApplyKnockback(directionUnit, dealtProduct);
         }
     }
 }

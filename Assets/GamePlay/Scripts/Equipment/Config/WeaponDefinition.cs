@@ -32,10 +32,11 @@ namespace GamePlay.Scripts.Equipment.Config
         
         public float GetDamageStat(int level) => PointSlopeForm(damage, damageBonusPerLevel, level);
         public float GetCooldownStat(int level) => PointSlopeForm(cooldown, cooldownBonusPerLevel, level);
+        public float GetKnockbackStat() => knockback;
         
         float PointSlopeForm(float baseValue, float a, int level)
         {
-            level = Mathf.Clamp(level, 0, maxLevel);
+            level = Mathf.Clamp(level - 1, 0, maxLevel);
             return baseValue + a * level ;
         }
     }

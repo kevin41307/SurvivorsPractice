@@ -1,5 +1,6 @@
 using GamePlay.Scripts.Actor.Config;
 using GamePlay.Scripts.Movement.Ports;
+using GamePlay.Scripts.Utility;
 using SpatialHash2D;
 using GamePlay.Scripts.Service.Ports;
 using UnityEngine;
@@ -12,11 +13,18 @@ namespace GamePlay.Scripts.Actor
         [Inject] private readonly SpatialHashWorld spatialHashWorld;
         [Inject] private readonly IPlayerLocator playerLocator;
 
+        [SerializeField] float knockbackDuration = 0.12f;
+        [SerializeField] float knockbackImpulseSpeed = 8f;
+
         private EnemyView enemyView;
         private GridAgent agent;
 
         private IMoveStep cachedMovePipeline;
         private EnemyDefinition cachedPipelineDefinition;
+
+        SimpleCountdownTimer knockbackCountdown;
+        Vector2 knockbackDirectionUnit;
+        float knockbackStrength;
 
         private void Awake()
         {
@@ -35,6 +43,20 @@ namespace GamePlay.Scripts.Actor
             agent = null;
             cachedMovePipeline = null;
             cachedPipelineDefinition = null;
+            knockbackCountdown.Stop();
+            knockbackStrength = 0f;
+        }
+
+        public void ApplyKnockback(Vector2 directionUnit, float dealtProduct)
+        {
+            if (directionUnit.sqrMagnitude < 1e-6f || dealtProduct <= 0f)
+            {
+                return;
+            }
+
+            knockbackDirectionUnit = directionUnit.normalized;
+            knockbackStrength = dealtProduct;
+            knockbackCountdown.Start(knockbackDuration);
         }
 
         private IMoveStep ResolveMovePipeline(EnemyDefinition definition)
@@ -89,6 +111,14 @@ namespace GamePlay.Scripts.Actor
                 return;
             
             var displacement = pipeline.GetDisplacement(in context, agent);
+
+            if (knockbackCountdown.IsRunning)
+            {
+                var dt = context.DeltaTime;
+                displacement += knockbackDirectionUnit *
+                                  (knockbackImpulseSpeed * knockbackStrength * dt);
+                knockbackCountdown.Tick(dt);
+            }
 
             transform.position = new Vector3(
                 pos3.x + displacement.x,

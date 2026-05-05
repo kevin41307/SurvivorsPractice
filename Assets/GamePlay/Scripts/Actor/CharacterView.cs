@@ -18,12 +18,20 @@ namespace GamePlay.Scripts.Actor
         }
 
         Transform ITargetable.Transform => transform;
+        Vector3 ICombatable.Position => transform.position;
         
         public void TakeDamage(float amount)
         {
             Debug.Log($"CharacterView TakeDamage: {amount}");
         }
-        
+
+        public void ApplyKnockback(Vector2 directionUnit, float dealtProduct)
+        {
+            //Ignored
+        }
+
+
+
         public void AddPassiveItem(PassiveItem item)
         {
             Character.Build.AddPassiveItem(item);
