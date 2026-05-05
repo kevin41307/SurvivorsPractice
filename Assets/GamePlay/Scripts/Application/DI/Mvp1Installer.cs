@@ -33,17 +33,6 @@ namespace GamePlay.Scripts.Application.DI
 
         protected override void Configure(IContainerBuilder builder)
         {
-            // 讓專案在 Inspector 尚未完整設定時也能啟動；至少放入目前選到的武器 ViewDefinition
-            // 避免 WeaponRegistry 為空導致 LevelUp 無法產生選項。
-            if (weaponViewDefinitions == null || weaponViewDefinitions.Count == 0)
-            {
-                var selected = selectedViewDefinitions?.ToDefinitions()?.SelectedWeapon;
-                if (selected != null)
-                {
-                    weaponViewDefinitions = new List<WeaponViewDefinition> { selected };
-                }
-            }
-
             //Unity Stuff
             builder.RegisterInstance(inputAction);
             
