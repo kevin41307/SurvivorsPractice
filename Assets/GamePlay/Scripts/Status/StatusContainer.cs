@@ -30,6 +30,19 @@ namespace GamePlay.Scripts.Status
         {
             stats[statType] = new Stat(initialValue);
         }
+
+        public void SetMaxHealthPoints(float value)
+        {
+            GetOrAdd(StatType.MaxHealthPoint).BaseValue = value;
+        }
+        public float GetMaxHealthPoints()
+        {
+            return GetOrAdd(StatType.MaxHealthPoint).FinalValue;
+        }
+        
+        
+        
+        
         
     }
 }

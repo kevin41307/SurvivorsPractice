@@ -21,9 +21,8 @@ namespace GamePlay.Scripts.Actor
         
         void GetStatsByLevelFromDefinition()
         {
-            StatusContainer.SetOrAdd(StatType.MaxHealthPoint, definition.GetHealthPointStat(Level));
-
-            CurrentHealthPoint = StatusContainer.Stats[StatType.MaxHealthPoint].FinalValue;
+            StatusContainer.SetMaxHealthPoints(definition.GetHealthPointStat(Level));
+            CurrentHealthPoint = StatusContainer.GetMaxHealthPoints();
         }       
 
         public void TakeDamage(int amount)
